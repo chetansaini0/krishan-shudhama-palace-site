@@ -98,7 +98,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
               whileInView={reduce ? undefined : { opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="group relative mb-4 cursor-pointer break-inside-avoid overflow-hidden rounded-xl shadow-md"
+              className="group relative mb-4 block w-full cursor-pointer break-inside-avoid overflow-hidden rounded-xl text-left shadow-md"
               onClick={() => openLightbox(i)}
               aria-label={`Open image: ${item.alt}`}
             >
