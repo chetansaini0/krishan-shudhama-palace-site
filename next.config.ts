@@ -1,7 +1,49 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  poweredByHeader: false,
+  compress: true,
+  allowedDevOrigins: ["192.168.137.1", "10.158.13.239"],
+  images: {
+    /* Dev: skip optimizer to avoid flaky _next/image 500s (slow DNS / timeouts to Unsplash). */
+    unoptimized: isDev,
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "https", hostname: "plus.unsplash.com", pathname: "/**" },
+    ],
+  },
+  async headers() {
+    const csp = isDev
+      ? "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https: http: ws: wss:; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;"
+      : "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https:; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;";
+
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          ...(isDev
+            ? []
+            : [
+                {
+                  key: "Strict-Transport-Security",
+                  value: "max-age=31536000; includeSubDomains; preload",
+                },
+              ]),
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          {
+            key: "Content-Security-Policy",
+            value: csp,
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

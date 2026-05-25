@@ -1,0 +1,76 @@
+import { SPIRITUAL_IMAGES, SPIRITUAL_VIDEOS } from "./spiritual-media";
+
+/** Client-safe branding via NEXT_PUBLIC_* — rebuild after changing env for client bundles. */
+function pe(key: string, fallback: string): string {
+  const v = process.env[key];
+  return typeof v === "string" && v.trim().length > 0 ? v.trim() : fallback;
+}
+
+export const HOTEL = {
+  name: pe("NEXT_PUBLIC_HOTEL_NAME", "Krishan Shudhama Palace"),
+  shortName: pe("NEXT_PUBLIC_HOTEL_SHORT_NAME", "Krishan Shudhama"),
+  tagline: pe(
+    "NEXT_PUBLIC_HOTEL_TAGLINE",
+    "Temple-adjacent luxury — devotion, royal ease & calm hospitality near Khatu Shyam Ji",
+  ),
+  description: pe(
+    "NEXT_PUBLIC_HOTEL_DESCRIPTION",
+    "Inspired by the spiritual aura of Khatu Shyam Temple, Krishan Shudhama Palace blends Rajasthani palace grandeur with serene seva-style care — a refined sanctuary where yatra becomes experience: peaceful, premium, and warmly welcoming for pilgrims, families, and celebrations.",
+  ),
+  spiritualLine: pe(
+    "NEXT_PUBLIC_HOTEL_SPIRITUAL_LINE",
+    "Perfect stay beside the temple · Peaceful hearts, blessed journeys",
+  ),
+  phone: pe("NEXT_PUBLIC_HOTEL_PHONE", "+91 95098 22387"),
+  phoneTel: pe("NEXT_PUBLIC_HOTEL_PHONE_TEL", "tel:+919509822387"),
+  whatsapp: pe("NEXT_PUBLIC_WHATSAPP", "919509822387"),
+  email: pe("NEXT_PUBLIC_HOTEL_EMAIL", "krishanshudhama1902@gmail.com"),
+  addressLine: pe(
+    "NEXT_PUBLIC_HOTEL_ADDRESS_LINE",
+    "Near Khatu Shyam Ji · Khatu, Rajasthan",
+  ),
+  city: pe("NEXT_PUBLIC_HOTEL_CITY", "Khatu"),
+  state: pe("NEXT_PUBLIC_HOTEL_STATE", "India"),
+  postalCode: pe("NEXT_PUBLIC_HOTEL_POSTAL", "000000"),
+  fullAddress: pe(
+    "NEXT_PUBLIC_HOTEL_FULL_ADDRESS",
+    "Near Khatu Shyam Temple, Khatu, Rajasthan — India",
+  ),
+  mapsEmbedUrl: pe(
+    "NEXT_PUBLIC_MAPS_EMBED_URL",
+    "https://www.google.com/maps?q=27.3660278,75.3936111&z=17&output=embed",
+  ),
+  mapsLink: pe(
+    "NEXT_PUBLIC_MAPS_LINK",
+    "https://www.google.com/maps/search/?api=1&query=27.3660278,75.3936111",
+  ),
+  social: {
+    instagram: pe("NEXT_PUBLIC_INSTAGRAM_URL", "https://instagram.com"),
+    facebook: pe("NEXT_PUBLIC_FACEBOOK_URL", "https://facebook.com"),
+  },
+  reviewsUrl: pe(
+    "NEXT_PUBLIC_REVIEWS_URL",
+    "https://www.google.com/maps/search/?api=1&query=reviews",
+  ),
+  heroVideoPoster: pe("NEXT_PUBLIC_HERO_POSTER_URL", SPIRITUAL_IMAGES.lampsWarmth),
+  heroVideoSrc: pe("NEXT_PUBLIC_HERO_VIDEO_URL", SPIRITUAL_VIDEOS.cinematicParticles),
+  googlePlaceId: pe("NEXT_PUBLIC_GOOGLE_PLACE_ID", ""),
+};
+
+export const BANQUET = {
+  capacityMin: Number(pe("NEXT_PUBLIC_BANQUET_CAPACITY_MIN", "100")) || 100,
+  capacityMax: Number(pe("NEXT_PUBLIC_BANQUET_CAPACITY_MAX", "500")) || 500,
+  hallName: pe("NEXT_PUBLIC_BANQUET_HALL_NAME", "Maharaja Grand Ballroom"),
+  highlights: (
+    pe(
+      "NEXT_PUBLIC_BANQUET_HIGHLIGHTS",
+      "Pillar-free AC banquet hall with premium acoustics|Stage, intelligent lighting & premium sound system|In-house catering & curated menus|Ample valet parking & separate guest entry",
+    )
+  ).split("|"),
+  eventTypes: (
+    pe(
+      "NEXT_PUBLIC_BANQUET_EVENT_TYPES",
+      "Weddings & receptions|Birthdays & anniversaries|Corporate conferences|Product launches & galas",
+    )
+  ).split("|"),
+};

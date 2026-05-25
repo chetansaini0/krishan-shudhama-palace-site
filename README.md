@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Krishan Shudhama Palace — Web
 
-## Getting Started
+Premium hotel marketing + direct booking experience built with **Next.js 15** (App Router), **Tailwind CSS v4**, **MongoDB** (Mongoose), and **Razorpay** checkout.
 
-First, run the development server:
+## Quick start
 
 ```bash
+cd site
+cp .env.example .env.local
+# Set at least MONGODB_URI, JWT_SECRET, ADMIN_EMAIL, ADMIN_PASSWORD_HASH
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Admin: [http://localhost:3000/admin/login](http://localhost:3000/admin/login).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Public site**: Home (hero video, booking widget, rooms, amenities, offers, testimonials, map), Rooms + detail, Banquet/events, Gallery, Location, Contact, Booking flow.
+- **Commerce**: Date-based pricing with weekend uplift, overlap checks when MongoDB is connected, Razorpay order + signature verification.
+- **Events**: Banquet inquiry API + admin pipeline (status, quote amount, notes).
+- **Admin**: JWT cookie auth, bookings, event leads, **rooms CRUD** (MongoDB), stats.
+- **Notifications**: After successful Razorpay verification, **Resend** email + **MSG91** Flow SMS (optional via env).
+- **Branding**: Phone, address, maps, hero media, and banquet copy via `NEXT_PUBLIC_*` variables (rebuild after changes).
+- **SEO**: Metadata + JSON-LD `Hotel` schema.
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+See `.env.example`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Without `MONGODB_URI`, the public site uses **static room data**; admin room tools and persisted bookings need MongoDB.
+- **Resend**: `RESEND_API_KEY` + `RESEND_FROM_EMAIL` (verified domain).
+- **MSG91**: `MSG91_AUTH_KEY` + `MSG91_FLOW_TEMPLATE_ID`. Template should expose **VAR1**–**VAR5** (guest name, room, stay dates, total INR, short ref) — see `src/lib/notifications.ts`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Production
 
-## Deploy on Vercel
+- Set `NEXT_PUBLIC_SITE_URL` for canonical URLs.
+- Use strong `JWT_SECRET`, bcrypt `ADMIN_PASSWORD_HASH`, and live Razorpay keys.
+- Terminate TLS at your host (SSL).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js · React 19 · Tailwind 4 · Mongoose · jose (JWT) · Razorpay · Resend · MSG91 · Framer Motion · Lucide
