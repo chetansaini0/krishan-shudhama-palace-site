@@ -73,7 +73,7 @@ export function HomeHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/40" />
       <div className="absolute inset-0 bg-gradient-to-r from-navy/30 via-transparent to-navy/30" />
 
-      <ParticleField count={15} />
+      {!reduce ? <ParticleField count={15} /> : null}
 
       <div className="grain pointer-events-none absolute inset-0" />
 

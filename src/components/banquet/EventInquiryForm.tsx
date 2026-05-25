@@ -22,6 +22,7 @@ export function EventInquiryForm() {
           guestCount: Number(fd.get("guestCount") ?? 100),
           eventDate: String(fd.get("preferredDate") ?? ""),
           message: String(fd.get("notes") ?? ""),
+          website: String(fd.get("website") ?? ""),
         }),
       });
       if (!res.ok) throw new Error();
@@ -121,6 +122,14 @@ export function EventInquiryForm() {
           placeholder="Tell us about your celebration..."
         />
       </label>
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+      />
 
       {status === "ok" && (
         <div

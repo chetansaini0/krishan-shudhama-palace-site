@@ -20,6 +20,7 @@ export function ContactForm() {
           phone: fd.get("phone"),
           email: fd.get("email"),
           message: fd.get("message"),
+          website: fd.get("website"),
         }),
       });
       if (!res.ok) throw new Error();
@@ -88,6 +89,14 @@ export function ContactForm() {
           placeholder="Tell us about your inquiry..."
         />
       </label>
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+      />
 
       {status === "ok" && (
         <div

@@ -9,6 +9,7 @@ export function QuickBookingWidget() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
+  const todayIso = new Date().toISOString().slice(0, 10);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,6 +32,7 @@ export function QuickBookingWidget() {
         <input
           type="date"
           required
+          min={todayIso}
           value={checkIn}
           onChange={(e) => setCheckIn(e.target.value)}
           className="w-full border-none bg-transparent text-sm text-ivory outline-none placeholder:text-ivory/30"
@@ -44,6 +46,7 @@ export function QuickBookingWidget() {
         <input
           type="date"
           required
+          min={checkIn || todayIso}
           value={checkOut}
           onChange={(e) => setCheckOut(e.target.value)}
           className="w-full border-none bg-transparent text-sm text-ivory outline-none placeholder:text-ivory/30"

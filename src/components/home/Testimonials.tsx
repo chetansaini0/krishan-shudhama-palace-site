@@ -41,9 +41,14 @@ export function Testimonials() {
   const prev = useCallback(() => setActive((i) => (i - 1 + reviews.length) % reviews.length), []);
 
   useEffect(() => {
-    const timer = setInterval(next, 6000);
-    return () => clearInterval(timer);
-  }, [next]);
+    if (reduce) return;
+    const timer = setInterval(() => {
+      if (!document.hidden) next();
+    }, 6000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [next, reduce]);
 
   return (
     <section className="relative overflow-hidden bg-cream py-24 lg:py-32">

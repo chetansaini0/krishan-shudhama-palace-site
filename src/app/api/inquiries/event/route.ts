@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { connectDB, isDbConfigured } from "@/lib/db";
 import { EventInquiryModel } from "@/models/EventInquiry";
-import { getClientIp } from "@/lib/request";
+import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { enforceSameOrigin } from "@/lib/csrf";
 
 const Body = z.object({
   name: z.string().min(2),
@@ -15,9 +16,17 @@ const Body = z.object({
   preferredDate: z.string().optional(),
   message: z.string().min(10).optional(),
   notes: z.string().min(10).optional(),
+  website: z.string().optional(),
 });
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
+  if (!isJsonRequest(req)) {
+    return NextResponse.json({ error: "Expected JSON payload" }, { status: 415 });
+  }
+
   const ip = getClientIp(req);
   const gate = checkRateLimit(`event-inquiry:${ip}`, 8, 60_000);
   if (!gate.ok) {
@@ -33,6 +42,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Please check the form fields" }, { status: 400 });
   }
   const d = parsed.data;
+  if (d.website && d.website.trim().length > 0) {
+    return NextResponse.json({
+      ok: true,
+      id: "filtered",
+      message: "Received. Our events team will contact you shortly.",
+    });
+  }
 
   if (!isDbConfigured()) {
     console.info("[event inquiry demo]", d);

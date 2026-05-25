@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { HOTEL } from "@/lib/constants";
@@ -28,10 +28,21 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [restaurantOpen, setRestaurantOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const rootRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const next = window.scrollY > 50;
+        setScrolled((prev) => (prev === next ? prev : next));
+        ticking = false;
+      });
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -39,6 +50,30 @@ export function Header() {
     setOpen(false);
     setRestaurantOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setRestaurantOpen(false);
+        setOpen(false);
+      }
+    };
+    const onClickAway = (event: MouseEvent) => {
+      if (!restaurantOpen) return;
+      const node = rootRef.current;
+      if (!node) return;
+      if (!node.contains(event.target as Node)) {
+        setRestaurantOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("mousedown", onClickAway);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("mousedown", onClickAway);
+    };
+  }, [restaurantOpen]);
 
   const isHome = pathname === "/";
   const navBg = scrolled
@@ -49,6 +84,7 @@ export function Header() {
 
   return (
     <header
+      ref={rootRef}
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${navBg}`}
     >
       <Container className="flex items-center justify-between py-4 lg:py-5">
@@ -101,7 +137,7 @@ export function Header() {
           >
             <button
               type="button"
-              className={`relative inline-flex items-center gap-1 px-4 py-2 text-sm tracking-wide transition-colors ${
+              className={`relative inline-flex items-center gap-1 rounded-md px-4 py-2 text-sm tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
                 pathname.startsWith("/dining")
                   ? "text-gold"
                   : "text-ivory/70 hover:text-ivory"
@@ -170,9 +206,10 @@ export function Header() {
 
         <button
           type="button"
-          className="rounded-lg border border-ivory/20 p-2.5 text-ivory lg:hidden"
+          className="rounded-lg border border-ivory/20 p-2.5 text-ivory transition hover:border-gold/40 hover:text-gold lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -186,6 +223,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            id="mobile-menu"
             className="overflow-hidden border-t border-gold/10 bg-navy/98 backdrop-blur-xl lg:hidden"
           >
             <Container className="py-6">

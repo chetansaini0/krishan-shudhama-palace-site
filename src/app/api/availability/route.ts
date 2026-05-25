@@ -4,9 +4,10 @@ import { addDays, isBefore, isValid, parseISO, startOfDay } from "date-fns";
 import { getRoomBySlug } from "@/lib/rooms";
 import { isRoomAvailable } from "@/lib/availability";
 import { computeStayTotalPaise } from "@/lib/pricing";
-import { getClientIp } from "@/lib/request";
+import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { isDbConfigured } from "@/lib/db";
+import { enforceSameOrigin } from "@/lib/csrf";
 
 const Body = z.object({
   roomSlug: z.string().min(1),
@@ -29,6 +30,13 @@ function validateDateWindow(checkInRaw: string, checkOutRaw: string) {
 }
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
+  if (!isJsonRequest(req)) {
+    return NextResponse.json({ error: "Expected JSON payload" }, { status: 415 });
+  }
+
   const ip = getClientIp(req);
   const gate = checkRateLimit(`availability:${ip}`, 40, 60_000);
   if (!gate.ok) {

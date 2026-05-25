@@ -28,12 +28,16 @@ export function Footer() {
   async function subscribeNewsletter(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newsletterEmail) return;
+    const fd = new FormData(e.currentTarget);
     setNewsletterStatus("loading");
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: newsletterEmail }),
+        body: JSON.stringify({
+          email: newsletterEmail,
+          website: String(fd.get("website") ?? ""),
+        }),
       });
       if (!res.ok) throw new Error();
       setNewsletterStatus("ok");
@@ -167,6 +171,14 @@ export function Footer() {
                 onSubmit={subscribeNewsletter}
               >
                 <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
+                <input
                   type="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
@@ -183,10 +195,14 @@ export function Footer() {
                 </button>
               </form>
               {newsletterStatus === "ok" ? (
-                <p className="mt-2 text-xs text-emerald-300">Subscribed successfully.</p>
+                <p className="mt-2 text-xs text-emerald-300" role="status" aria-live="polite">
+                  Subscribed successfully.
+                </p>
               ) : null}
               {newsletterStatus === "err" ? (
-                <p className="mt-2 text-xs text-rose-300">Unable to subscribe right now.</p>
+                <p className="mt-2 text-xs text-rose-300" role="alert" aria-live="assertive">
+                  Unable to subscribe right now.
+                </p>
               ) : null}
             </div>
           </div>

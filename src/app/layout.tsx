@@ -32,6 +32,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: metadataBaseUrl(),
   alternates: { canonical: "/" },
+  applicationName: HOTEL.name,
+  category: "travel",
   icons: {
     icon: "/logo-light.png",
     apple: "/logo-light.png",
@@ -42,6 +44,17 @@ export const metadata: Metadata = {
     template: `%s · ${HOTEL.shortName}`,
   },
   description: HOTEL.description,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
   keywords: [
     "luxury hotel",
     "Khatu Shyam",
@@ -58,6 +71,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: HOTEL.name,
+    url: "/",
     images: [{ url: HOTEL.heroVideoPoster, width: 1200, height: 630, alt: HOTEL.name }],
   },
   twitter: {

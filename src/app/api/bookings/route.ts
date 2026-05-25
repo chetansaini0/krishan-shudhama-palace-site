@@ -6,8 +6,9 @@ import { connectDB, isDbConfigured } from "@/lib/db";
 import { getRoomBySlug } from "@/lib/rooms";
 import { computeStayTotalPaise } from "@/lib/pricing";
 import { BookingModel } from "@/models/Booking";
-import { getClientIp } from "@/lib/request";
+import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { enforceSameOrigin } from "@/lib/csrf";
 
 const Body = z.object({
   roomSlug: z.string().min(1).max(80),
@@ -34,6 +35,13 @@ function validateDateWindow(checkInRaw: string, checkOutRaw: string) {
 }
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
+  if (!isJsonRequest(req)) {
+    return NextResponse.json({ error: "Expected JSON payload" }, { status: 415 });
+  }
+
   const ip = getClientIp(req);
   const gate = checkRateLimit(`bookings:${ip}`, 15, 60_000);
   if (!gate.ok) {

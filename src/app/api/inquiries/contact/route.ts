@@ -2,17 +2,26 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { connectDB, isDbConfigured } from "@/lib/db";
 import { ContactInquiryModel } from "@/models/ContactInquiry";
-import { getClientIp } from "@/lib/request";
+import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { enforceSameOrigin } from "@/lib/csrf";
 
 const Body = z.object({
   name: z.string().min(2),
   phone: z.string().min(8),
   message: z.string().min(10),
   email: z.string().email().optional(),
+  website: z.string().optional(),
 });
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
+  if (!isJsonRequest(req)) {
+    return NextResponse.json({ error: "Expected JSON payload" }, { status: 415 });
+  }
+
   const ip = getClientIp(req);
   const gate = checkRateLimit(`contact:${ip}`, 10, 60_000);
   if (!gate.ok) {
@@ -26,6 +35,12 @@ export async function POST(req: Request) {
   const parsed = Body.safeParse(json);
   if (!parsed.success) {
     return NextResponse.json({ error: "Invalid form" }, { status: 400 });
+  }
+  if (parsed.data.website && parsed.data.website.trim().length > 0) {
+    return NextResponse.json({
+      ok: true,
+      message: "Thank you for reaching out. Our concierge will respond shortly.",
+    });
   }
 
   if (isDbConfigured()) {

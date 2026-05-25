@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   images: {
     /* Dev: skip optimizer to avoid flaky _next/image 500s (slow DNS / timeouts to Unsplash). */
     unoptimized: isDev,
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 7,
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "plus.unsplash.com", pathname: "/**" },
