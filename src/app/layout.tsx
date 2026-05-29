@@ -4,23 +4,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Analytics } from "@/components/seo/Analytics";
 import { HOTEL } from "@/lib/constants";
 import { ClientEnhancements } from "@/components/layout/ClientEnhancements";
-
-function metadataBaseUrl(): URL {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (raw) {
-    try {
-      return new URL(raw.includes("://") ? raw : `https://${raw}`);
-    } catch {
-      /* fall through */
-    }
-  }
-  if (process.env.NODE_ENV === "production") {
-    console.warn("NEXT_PUBLIC_SITE_URL is missing; falling back to localhost metadata base.");
-  }
-  return new URL("http://localhost:3000");
-}
+import { metadataBaseUrl } from "@/lib/site-url";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -72,13 +59,16 @@ export const metadata: Metadata = {
     locale: "en_IN",
     siteName: HOTEL.name,
     url: "/",
-    images: [{ url: HOTEL.heroVideoPoster, width: 1200, height: 630, alt: HOTEL.name }],
+    images: [{ url: "/images/our-story-room.png", width: 1200, height: 630, alt: HOTEL.name }],
   },
   twitter: {
     card: "summary_large_image",
     title: HOTEL.name,
     description: HOTEL.description,
-    images: [HOTEL.heroVideoPoster],
+    images: ["/images/our-story-room.png"],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
@@ -99,6 +89,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <ClientEnhancements />
+        <Analytics />
         <JsonLd />
         <Header />
         <main id="main-content" className="min-h-[70vh] w-full min-w-0">

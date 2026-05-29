@@ -8,10 +8,13 @@ import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
 import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 const quickLinks = [
+  { href: "/about", label: "About Us" },
   { href: "/rooms", label: "Rooms & Suites" },
+  { href: "/amenities", label: "Amenities" },
   { href: "/banquet", label: "Banquets & Events" },
-  { href: "/gallery", label: "Gallery" },
   { href: "/dining", label: "Dining" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
   { href: "/book", label: "Book Now" },
 ];
@@ -210,14 +213,32 @@ export function Footer() {
 
         <div className="border-t border-white/5 py-6 text-center text-xs text-ivory/30">
           <Container>
-            &copy; {new Date().getFullYear()} {HOTEL.name}. All rights
-            reserved. |{" "}
-            <Link
-              href="/admin/login"
-              className="transition hover:text-ivory/50"
-            >
-              Staff
-            </Link>
+            <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
+              <span>
+                &copy; {new Date().getFullYear()} {HOTEL.name}. All rights reserved.
+              </span>
+              <span className="hidden text-gold/30 sm:inline">|</span>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                <Link href="/privacy" className="transition hover:text-ivory/60">
+                  Privacy
+                </Link>
+                <Link href="/terms" className="transition hover:text-ivory/60">
+                  Terms
+                </Link>
+                <Link href="/cancellation" className="transition hover:text-ivory/60">
+                  Cancellation
+                </Link>
+                <Link href="/cookies" className="transition hover:text-ivory/60">
+                  Cookies
+                </Link>
+                <Link href="/disclaimer" className="transition hover:text-ivory/60">
+                  Disclaimer
+                </Link>
+                <Link href="/admin/login" className="transition hover:text-ivory/60">
+                  Staff
+                </Link>
+              </div>
+            </div>
           </Container>
         </div>
       </div>

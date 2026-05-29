@@ -5,7 +5,7 @@ const isDev = process.env.NODE_ENV === "development";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
-  allowedDevOrigins: ["192.168.137.1", "10.158.13.239"],
+  allowedDevOrigins: ["192.168.137.1", "10.158.13.239", "10.94.220.239"],
   images: {
     /* Dev: skip optimizer to avoid flaky _next/image 500s (slow DNS / timeouts to Unsplash). */
     unoptimized: isDev,
@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = isDev
       ? "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https: http: ws: wss:; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;"
-      : "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https:; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;";
+      : "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;";
 
     return [
       {

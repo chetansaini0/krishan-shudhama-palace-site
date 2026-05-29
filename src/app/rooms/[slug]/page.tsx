@@ -19,7 +19,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const room = await getRoomBySlug(slug);
   if (!room) return { title: "Room" };
-  return { title: room.name, description: room.tagline };
+  const description = `${room.tagline} — from ₹${room.basePrice.toLocaleString("en-IN")}/night at Krishan Shudhama Palace, Khatu.`;
+  return {
+    title: room.name,
+    description,
+    alternates: { canonical: `/rooms/${slug}` },
+    openGraph: {
+      title: room.name,
+      description,
+      type: "website",
+      url: `/rooms/${slug}`,
+      images: room.images[0]
+        ? [{ url: room.images[0], width: 1200, height: 630, alt: room.name }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: room.name,
+      description,
+      images: room.images[0] ? [room.images[0]] : undefined,
+    },
+  };
 }
 
 export default async function RoomDetailPage({ params }: Props) {

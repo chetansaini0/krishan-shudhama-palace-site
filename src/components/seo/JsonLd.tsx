@@ -1,17 +1,28 @@
 import { HOTEL } from "@/lib/constants";
+import { siteUrl } from "@/lib/site-url";
+
+const LAT = 27.3660278;
+const LNG = 75.3936111;
 
 export function JsonLd() {
-  const site = process.env.NEXT_PUBLIC_SITE_URL?.includes("://")
-    ? process.env.NEXT_PUBLIC_SITE_URL
-    : process.env.NEXT_PUBLIC_SITE_URL
-      ? `https://${process.env.NEXT_PUBLIC_SITE_URL}`
-      : "http://localhost:3000";
+  const site = siteUrl();
+  const ogImage = `${site}/images/our-story-room.png`;
 
-  const data = {
+  const hotel = {
     "@context": "https://schema.org",
-    "@type": "Hotel",
+    "@type": ["Hotel", "LodgingBusiness"],
+    "@id": `${site}/#hotel`,
     name: HOTEL.name,
+    alternateName: HOTEL.shortName,
     description: HOTEL.description,
+    url: site,
+    telephone: HOTEL.phone,
+    email: HOTEL.email,
+    image: [ogImage, HOTEL.heroVideoPoster].filter(Boolean),
+    logo: `${site}/logo-light.png`,
+    priceRange: "₹₹",
+    checkinTime: "13:00",
+    checkoutTime: "11:00",
     address: {
       "@type": "PostalAddress",
       streetAddress: HOTEL.addressLine,
@@ -20,19 +31,71 @@ export function JsonLd() {
       postalCode: HOTEL.postalCode,
       addressCountry: "IN",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: LAT,
+      longitude: LNG,
+    },
+    hasMap: HOTEL.mapsLink,
+    sameAs: [HOTEL.social.instagram, HOTEL.social.facebook, HOTEL.mapsLink].filter(Boolean),
+    ...(HOTEL.googlePlaceId
+      ? { identifier: { "@type": "PropertyValue", propertyID: "Google Place ID", value: HOTEL.googlePlaceId } }
+      : {}),
+  };
+
+  const localBusiness = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${site}/#localbusiness`,
+    name: HOTEL.name,
+    description: HOTEL.description,
+    url: site,
     telephone: HOTEL.phone,
     email: HOTEL.email,
-    url: site,
-    image: HOTEL.heroVideoPoster,
-    sameAs: [HOTEL.social.instagram, HOTEL.social.facebook].filter(Boolean),
-    checkinTime: "13:00",
-    checkoutTime: "11:00",
-    priceRange: "₹₹",
+    image: ogImage,
+    address: hotel.address,
+    geo: hotel.geo,
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
+    },
   };
+
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site}/#website`,
+    name: HOTEL.name,
+    url: site,
+    description: HOTEL.description,
+    publisher: { "@id": `${site}/#hotel` },
+    inLanguage: "en-IN",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${site}/rooms?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const graph = [hotel, localBusiness, website];
+
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }}
     />
   );
 }
