@@ -5,10 +5,16 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { HOTEL } from "@/lib/constants";
 
-export function BanquetHero({ imageSrc }: { imageSrc: string }) {
+export function BanquetHero({
+  imageSrc,
+  imageAlt = "Banquet hall at Krishan Shudhama Palace",
+}: {
+  imageSrc: string;
+  imageAlt?: string;
+}) {
   return (
     <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
-      <Image src={imageSrc} alt="Banquet hall" fill className="object-cover" priority />
+      <Image src={imageSrc} alt={imageAlt} fill className="object-cover" priority sizes="100vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/30" />
       <Container className="relative z-10 flex h-full items-end pb-16">
         <div>

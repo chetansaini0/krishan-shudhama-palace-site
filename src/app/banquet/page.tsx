@@ -5,7 +5,6 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { EventInquiryForm } from "@/components/banquet/EventInquiryForm";
 import { BanquetHero } from "@/components/banquet/BanquetHero";
 import { BANQUET, HOTEL } from "@/lib/constants";
-import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
 import { Check, Music, Lightbulb, Car, Utensils, Mic2 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -13,11 +12,20 @@ export const metadata: Metadata = {
   description: `${BANQUET.hallName} — weddings, corporate events, and celebrations at ${HOTEL.name}.`,
 };
 
-const gallery = [
-  SPIRITUAL_IMAGES.lampsWarmth,
-  SPIRITUAL_IMAGES.refinedLobby,
-  SPIRITUAL_IMAGES.hospitalityLobby,
-];
+const banquetGallery = [
+  {
+    src: "/images/banquet/banquet-hall-main.png",
+    alt: "Grand banquet hall with stage lighting, buffet setup, and elegant seating at Krishan Shudhama Palace",
+  },
+  {
+    src: "/images/banquet/banquet-hall-seating.png",
+    alt: "Formal banquet seating arrangement with stage and warm ambient lighting",
+  },
+  {
+    src: "/images/banquet/wedding-stage.png",
+    alt: "Premium wedding stage decoration with floral arches and crystal chandeliers",
+  },
+] as const;
 
 const services = [
   { icon: Utensils, label: "Custom catering & live counters" },
@@ -31,7 +39,10 @@ const services = [
 export default function BanquetPage() {
   return (
     <div className="bg-ivory">
-      <BanquetHero imageSrc={gallery[0]} />
+      <BanquetHero
+        imageSrc={banquetGallery[0].src}
+        imageAlt={banquetGallery[0].alt}
+      />
 
       <section className="py-24 lg:py-32">
         <Container>
@@ -41,12 +52,18 @@ export default function BanquetPage() {
             subtitle="High ceilings, modular layouts, and seamless guest circulation — engineered for weddings, milestone birthdays, and executive summits."
           />
           <div className="grid gap-4 md:grid-cols-3">
-            {gallery.map((src) => (
+            {banquetGallery.map((item) => (
               <div
-                key={src}
+                key={item.src}
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg"
               >
-                <Image src={src} alt="" fill className="object-cover" sizes="33vw" />
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover transition duration-500 hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
             ))}
           </div>
