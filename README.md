@@ -1,5 +1,8 @@
 # Krishan Shudhama Palace — Web
 
+> **Copyright © 2026 Krishan Shudhama Palace / Chetan Saini. All Rights Reserved.**  
+> This repository is **proprietary**. You may view it on GitHub, but you may **not** copy, fork, modify, deploy, or use any part of this project without **written permission**. See [LICENSE](./LICENSE).
+
 Premium hotel marketing + direct booking experience built with **Next.js 15** (App Router), **Tailwind CSS v4**, **MongoDB** (Mongoose), and **Razorpay** checkout.
 
 ## Quick start
