@@ -22,9 +22,13 @@ export const metadata: Metadata = {
   applicationName: HOTEL.name,
   category: "travel",
   icons: {
-    icon: "/logo-light.png",
-    apple: "/logo-light.png",
-    shortcut: "/logo-light.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icons/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icons/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/icons/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
   },
   title: {
     default: `${HOTEL.name} — Luxury Stay & Events`,
