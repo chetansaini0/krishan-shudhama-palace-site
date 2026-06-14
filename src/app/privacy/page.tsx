@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy",
-  description: `How ${HOTEL.name} collects, uses, and protects your personal information.`,
-  alternates: { canonical: "/privacy" },
-  robots: { index: true, follow: true },
-};
+  description: `How ${HOTEL.name} collects, uses, and protects your personal information when you book our hotel in Khatoo.`,
+  path: "/privacy",
+  keywords: [HOTEL.name, "hotel privacy policy Khatu"],
+});
 
 const LAST_UPDATED = "May 2026";
 

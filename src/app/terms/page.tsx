@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Terms & Conditions",
   description: `The terms governing bookings, stays, and use of the ${HOTEL.name} website and services.`,
-  alternates: { canonical: "/terms" },
-  robots: { index: true, follow: true },
-};
+  path: "/terms",
+  keywords: [HOTEL.name, "hotel booking terms Khatu"],
+});
 
 const LAST_UPDATED = "May 2026";
 

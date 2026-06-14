@@ -30,11 +30,23 @@ export const HOTEL = {
     "Near Khatu Shyam Ji · Khatu, Rajasthan",
   ),
   city: pe("NEXT_PUBLIC_HOTEL_CITY", "Khatu"),
-  state: pe("NEXT_PUBLIC_HOTEL_STATE", "India"),
-  postalCode: pe("NEXT_PUBLIC_HOTEL_POSTAL", "000000"),
+  state: pe("NEXT_PUBLIC_HOTEL_STATE", "Rajasthan"),
+  postalCode: pe("NEXT_PUBLIC_HOTEL_POSTAL", "332602"),
   fullAddress: pe(
     "NEXT_PUBLIC_HOTEL_FULL_ADDRESS",
     "Near Khatu Shyam Temple, Khatu, Rajasthan — India",
+  ),
+  /** Hours shown on site + Google Business Profile (keep in sync). */
+  businessHours: {
+    frontDesk: "Open 24 hours",
+    checkIn: "1:00 PM",
+    checkOut: "11:00 AM",
+    restaurant: "7:00 AM – 10:30 PM",
+  },
+  /** Paste into Google Business Profile → Business description */
+  gbpDescription: pe(
+    "NEXT_PUBLIC_GBP_DESCRIPTION",
+    "Krishan Shudhama Palace is a luxury hotel in Khatoo (Khatu) near Khatu Shyam Ji Temple. We offer palace-style AC rooms, pure vegetarian dining, banquet hall for weddings, free parking, and 24/7 concierge — ideal for pilgrims, families, and group yatras visiting Khatu Shyam Temple.",
   ),
   mapsEmbedUrl: pe(
     "NEXT_PUBLIC_MAPS_EMBED_URL",
@@ -50,7 +62,7 @@ export const HOTEL = {
   },
   reviewsUrl: pe(
     "NEXT_PUBLIC_REVIEWS_URL",
-    "https://www.google.com/maps/search/?api=1&query=reviews",
+    "https://www.google.com/maps/search/?api=1&query=Krishan+Shudhama+Palace+Khatu+Rajasthan",
   ),
   heroVideoPoster: pe("NEXT_PUBLIC_HERO_POSTER_URL", SPIRITUAL_IMAGES.lampsWarmth),
   heroVideoSrc: pe("NEXT_PUBLIC_HERO_VIDEO_URL", SPIRITUAL_VIDEOS.cinematicParticles),

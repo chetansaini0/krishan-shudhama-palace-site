@@ -46,6 +46,17 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    if (isDev) return [];
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "krishanshudhamapalace.com" }],
+        destination: "https://www.krishanshudhamapalace.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -3,13 +3,15 @@ import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Phone, Mail, MessageCircle, MapPin, Clock } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: `Reach ${HOTEL.name} reservations, events, and concierge.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact — Hotel in Khatoo Near Khatu Shyam Temple",
+  description: `Contact ${HOTEL.name} for room bookings, banquet events & yatra assistance. Best hotel in Khatoo — call ${HOTEL.phone} or WhatsApp.`,
+  path: "/contact",
+});
 
 export default function ContactPage() {
   const wa = `https://wa.me/${HOTEL.whatsapp}`;

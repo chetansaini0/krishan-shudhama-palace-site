@@ -5,12 +5,14 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { EventInquiryForm } from "@/components/banquet/EventInquiryForm";
 import { BanquetHero } from "@/components/banquet/BanquetHero";
 import { BANQUET, HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 import { Check, Music, Lightbulb, Car, Utensils, Mic2 } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Banquets & Events",
-  description: `${BANQUET.hallName} — weddings, corporate events, and celebrations at ${HOTEL.name}.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Banquet Hall & Weddings in Khatoo Near Khatu Shyam Ji",
+  description: `${BANQUET.hallName} at ${HOTEL.name} — wedding venue & banquet hall in Khatoo near Khatu Shyam Temple. Capacity ${BANQUET.capacityMin}–${BANQUET.capacityMax} guests.`,
+  path: "/banquet",
+});
 
 const banquetGallery = [
   {

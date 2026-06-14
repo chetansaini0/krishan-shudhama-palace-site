@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Cancellation & Refund Policy",
-  description: `Booking cancellation, modification, and refund terms for ${HOTEL.name}.`,
-  alternates: { canonical: "/cancellation" },
-  robots: { index: true, follow: true },
-};
+  description: `Booking cancellation, modification, and refund terms for ${HOTEL.name} — hotel in Khatoo near Khatu Shyam Temple.`,
+  path: "/cancellation",
+  keywords: [HOTEL.name, "hotel cancellation policy Khatu"],
+});
 
 const LAST_UPDATED = "May 2026";
 

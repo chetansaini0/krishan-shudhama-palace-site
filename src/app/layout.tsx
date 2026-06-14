@@ -8,6 +8,7 @@ import { Analytics } from "@/components/seo/Analytics";
 import { HOTEL } from "@/lib/constants";
 import { ClientEnhancements } from "@/components/layout/ClientEnhancements";
 import { metadataBaseUrl } from "@/lib/site-url";
+import { SEO_KEYWORDS } from "@/lib/seo";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -31,10 +32,11 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   title: {
-    default: `${HOTEL.name} — Luxury Stay & Events`,
+    default: `Best Hotel in Khatoo Near Khatu Shyam Ji | ${HOTEL.name}`,
     template: `%s · ${HOTEL.shortName}`,
   },
-  description: HOTEL.description,
+  description:
+    "Book the best hotel in Khatoo (Khatu) near Khatu Shyam Temple — luxury rooms, pure veg dining, banquet hall & direct booking at Krishan Shudhama Palace.",
   robots: {
     index: true,
     follow: true,
@@ -46,16 +48,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  keywords: [
-    "luxury hotel",
-    "Khatu Shyam",
-    "Khatu Shyam Ji hotel",
-    "temple stay Rajasthan",
-    "banquet hall",
-    "wedding venue",
-    HOTEL.name,
-    "direct booking",
-  ],
+  keywords: [...SEO_KEYWORDS],
   openGraph: {
     title: HOTEL.name,
     description: HOTEL.description,
@@ -82,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <body
         className="min-h-screen w-full min-w-0 antialiased"
       >

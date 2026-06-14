@@ -21,16 +21,14 @@ import {
   Coffee,
 } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Amenities",
-  description: `Premium amenities at ${HOTEL.name} — luxury rooms, free Wi-Fi, parking, multi-cuisine restaurant, AC rooms, event hall, 24/7 service, CCTV security, and room service.`,
-  alternates: { canonical: "/amenities" },
-  openGraph: {
-    title: `Amenities · ${HOTEL.name}`,
-    description: `Everything you need for a comfortable, luxurious stay at ${HOTEL.name}.`,
-    url: "/amenities",
-  },
-};
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Hotel Amenities in Khatoo — Wi-Fi, Parking, Dining & More",
+  description: `Premium amenities at the best hotel in Khatoo — AC rooms, free Wi-Fi, parking, pure veg restaurant, banquet hall, 24/7 service & temple shuttle near Khatu Shyam Ji.`,
+  path: "/amenities",
+});
 
 const coreAmenities = [
   { icon: Wifi, label: "Free High-Speed Wi-Fi", desc: "Complimentary connectivity throughout the property." },
@@ -56,10 +54,16 @@ const lifestyleAmenities = [
 export default function AmenitiesPage() {
   return (
     <div className="bg-ivory">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Amenities", path: "/amenities" },
+        ]}
+      />
       <section className="relative h-[52vh] min-h-[340px] overflow-hidden">
         <Image
           src={SPIRITUAL_IMAGES.resortEvening}
-          alt={`Amenities at ${HOTEL.name}`}
+          alt={`Hotel amenities in Khatoo near Khatu Shyam Temple — ${HOTEL.name}`}
           fill
           priority
           sizes="100vw"

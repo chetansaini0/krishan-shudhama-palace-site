@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Disclaimer",
   description: `Website disclaimer and liability information for ${HOTEL.name}.`,
-  alternates: { canonical: "/disclaimer" },
-  robots: { index: true, follow: true },
-};
+  path: "/disclaimer",
+  keywords: [HOTEL.name],
+});
 
 const LAST_UPDATED = "May 2026";
 

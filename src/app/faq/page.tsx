@@ -2,52 +2,57 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 import { ChevronDown } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "FAQ",
-  description: `Frequently asked questions about stays, bookings, dining, events, and policies at ${HOTEL.name}.`,
-  alternates: { canonical: "/faq" },
-  openGraph: {
-    title: `FAQ · ${HOTEL.name}`,
-    description: `Answers to common questions about ${HOTEL.name}.`,
-    url: "/faq",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "FAQ — Best Hotel in Khatoo Near Khatu Shyam Temple",
+  description: `Answers about staying at ${HOTEL.name} — the best hotel in Khatoo near Khatu Shyam Ji. Booking, rooms, dining, events, parking & yatra tips.`,
+  path: "/faq",
+});
 
 const faqs = [
   {
+    q: "Which is the best hotel in Khatoo near Khatu Shyam Temple?",
+    a: `${HOTEL.name} is among the top-rated luxury hotels in Khatoo (Khatu), located steps from Khatu Shyam Ji temple. We offer palace-style rooms, pure vegetarian dining, banquet facilities, and direct booking with the best rates.`,
+  },
+  {
     q: "Where is Krishan Shudhama Palace located?",
-    a: `We are located near Khatu Shyam Ji temple — ${HOTEL.fullAddress}. The temple is just a short walk away, making us ideal for pilgrims and families.`,
+    a: `We are located near Khatu Shyam Ji temple in Khatoo, Rajasthan — ${HOTEL.fullAddress}. The temple is just a 2-minute walk, making us ideal for pilgrims, families, and group yatras.`,
+  },
+  {
+    q: "How do I book a room at your hotel in Khatoo?",
+    a: "Book directly on our website via the Book page for the best rates and instant confirmation. You can also call or WhatsApp our concierge for assisted bookings and group reservations.",
+  },
+  {
+    q: "What types of rooms are available in Khatoo?",
+    a: "We offer 4 Deluxe King rooms (₹1,500/night) for couples and 4 Royal Suites (₹2,500/night) for families — both with AC, Wi-Fi, and Rajasthani-inspired interiors near Khatu Shyam Temple. Executive Club is coming soon.",
   },
   {
     q: "What are the check-in and check-out times?",
     a: "Standard check-in is from 1:00 PM and check-out is by 11:00 AM. Early check-in and late check-out can be arranged on request, subject to availability.",
   },
   {
-    q: "How do I book a room?",
-    a: "You can book directly on our website via the Book page for the best rates, or contact our concierge by phone or WhatsApp for assisted bookings and group reservations.",
+    q: "Is the restaurant pure vegetarian?",
+    a: "Yes. Our restaurant is 100% pure vegetarian, serving satvik, Rajasthani thali, South Indian, Chinese, and Continental cuisine — perfect for pilgrims visiting Khatu Shyam Ji.",
   },
   {
-    q: "Is the kitchen pure vegetarian?",
-    a: "Yes. Our restaurant is 100% pure vegetarian, serving satvik, Rajasthani, South Indian, Chinese, and Continental cuisine prepared with care.",
+    q: "Do you host weddings and events in Khatoo?",
+    a: `Absolutely. Our pillar-free banquet hall hosts weddings, receptions, corporate events, and family celebrations with capacity for ${100}–${500} guests, in-house catering, and valet parking.`,
   },
   {
-    q: "Do you host weddings and events?",
-    a: "Absolutely. Our pillar-free banquet hall hosts weddings, receptions, corporate events, and family celebrations with in-house catering, decor, and event planning support.",
-  },
-  {
-    q: "Is parking available?",
-    a: "Yes, we offer ample on-site parking with valet service and a separate guest entry for events.",
-  },
-  {
-    q: "What amenities are included with my stay?",
-    a: "All stays include complimentary high-speed Wi-Fi, air-conditioned rooms, 24/7 service, CCTV security, room service, and access to our restaurant. Explore the Amenities page for the full list.",
+    q: "Is parking available at the hotel?",
+    a: "Yes, we offer ample on-site parking with valet service and a separate guest entry for events — convenient for families travelling to Khatu Shyam Temple.",
   },
   {
     q: "Do you provide temple transfers or yatra assistance?",
-    a: "Yes. Our concierge and travel desk arrange temple-route shuttles, airport pickups, local guides, and complete yatra planning for our guests.",
+    a: "Yes. Our concierge arranges temple-route shuttles, airport pickups, local guides, and complete yatra planning for guests staying at our hotel near Khatu Shyam Ji.",
+  },
+  {
+    q: "What is the best time to visit Khatu Shyam Ji?",
+    a: "October to March offers pleasant weather. Festival seasons are busiest — book your hotel in Khatoo 2–4 weeks in advance during peak yatra periods. See our blog for a detailed seasonal guide.",
   },
   {
     q: "What is your cancellation policy?",
@@ -55,7 +60,7 @@ const faqs = [
   },
   {
     q: "How can I contact the hotel?",
-    a: `Call us at ${HOTEL.phone}, email ${HOTEL.email}, or message us on WhatsApp. Our team responds promptly to all inquiries.`,
+    a: `Call us at ${HOTEL.phone}, email ${HOTEL.email}, or message us on WhatsApp. Our team responds promptly to all inquiries about rooms, events, and Khatu yatra planning.`,
   },
 ];
 
@@ -79,12 +84,18 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "FAQ", path: "/faq" },
+        ]}
+      />
       <Container>
         <SectionTitle
           as="h1"
           eyebrow="Help Center"
-          title="Frequently asked questions"
-          subtitle="Everything you need to know before your stay. Can't find an answer? Our concierge is here to help."
+          title="Frequently asked questions about our hotel in Khatoo"
+          subtitle="Everything you need to know before booking the best stay near Khatu Shyam Temple. Can't find an answer? Our concierge is here to help."
         />
 
         <div className="mx-auto max-w-3xl space-y-3">
@@ -108,7 +119,7 @@ export default function FaqPage() {
         <div className="mx-auto mt-14 max-w-3xl rounded-2xl border border-gold/15 bg-navy p-8 text-center text-ivory">
           <h2 className="font-serif text-2xl">Still have questions?</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-ivory/55">
-            Our concierge team is available 24/7 to help plan your perfect stay.
+            Our concierge team is available 24/7 to help plan your perfect stay in Khatoo.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a

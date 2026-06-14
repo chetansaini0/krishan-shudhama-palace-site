@@ -4,6 +4,7 @@ import Razorpay from "razorpay";
 import { isDbConfigured } from "@/lib/db";
 import { getClientIp } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { enforceSameOrigin } from "@/lib/csrf";
 import {
   finalizePaidBooking,
   verifyRazorpayCheckoutSignature,
@@ -17,6 +18,9 @@ const Body = z.object({
 });
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
   const ip = getClientIp(req);
   const gate = checkRateLimit(`razorpay-verify:${ip}`, 20, 60_000);
   if (!gate.ok) {

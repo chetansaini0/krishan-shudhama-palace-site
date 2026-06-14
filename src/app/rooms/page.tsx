@@ -2,24 +2,34 @@ import type { Metadata } from "next";
 import { RoomsClient } from "@/components/rooms/RoomsClient";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getRooms } from "@/lib/rooms";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Rooms & Suites",
-  description: "Deluxe, suite, and executive accommodations at Krishan Shudhama Palace.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rooms in Khatoo — Luxury Hotel Near Khatu Shyam Temple",
+  description:
+    "Book luxury rooms in Khatoo at Krishan Shudhama Palace — Deluxe King from ₹1,500, Royal Suite from ₹2,500 near Khatu Shyam Ji. Executive Club coming soon.",
+  path: "/rooms",
+});
 
 export default async function RoomsPage() {
   const rooms = await getRooms();
 
   return (
     <div className="bg-ivory pt-28 pb-20 lg:pt-36">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Rooms", path: "/rooms" },
+        ]}
+      />
       <Container>
         <SectionTitle
           as="h1"
           eyebrow="Accommodations"
-          title="Find your perfect room"
-          subtitle="Every category offers refined proportions, layered lighting, and residential comfort — whether you are here for a quiet escape or a milestone celebration."
+          title="Luxury rooms in Khatoo near Khatu Shyam Ji"
+          subtitle="Affordable to premium accommodation near Khatu Shyam Temple — family-friendly rooms with Rajasthani palace comfort and modern amenities."
         />
         <RoomsClient rooms={rooms} />
       </Container>

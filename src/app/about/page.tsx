@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
@@ -9,16 +11,11 @@ import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
 import { HOTEL } from "@/lib/constants";
 import { HeartHandshake, Sparkles, Crown, Leaf } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description: `Discover the story, values, and royal hospitality behind ${HOTEL.name} — a luxury palace stay beside Khatu Shyam Ji.`,
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: `About ${HOTEL.name}`,
-    description: `The story and philosophy behind ${HOTEL.name}.`,
-    url: "/about",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "About Us — Best Hotel in Khatoo Near Khatu Shyam Temple",
+  description: `Discover ${HOTEL.name} — a luxury family hotel in Khatoo (Khatu) near Khatu Shyam Ji. Rajasthani palace hospitality, pure veg dining & banquet hall.`,
+  path: "/about",
+});
 
 const values = [
   {
@@ -59,6 +56,12 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="bg-ivory">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
+      />
       <section className="relative h-[58vh] min-h-[380px] overflow-hidden">
         <Image
           src={SPIRITUAL_IMAGES.indiaHeritageFacade}

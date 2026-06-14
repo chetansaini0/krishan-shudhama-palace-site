@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { addDays, isBefore, isValid, parseISO, startOfDay } from "date-fns";
 import { getRoomBySlug } from "@/lib/rooms";
-import { isRoomAvailable } from "@/lib/availability";
+import { isRoomAvailable, getUnitsAvailable } from "@/lib/availability";
 import { computeStayTotalPaise } from "@/lib/pricing";
 import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
@@ -66,13 +66,19 @@ export async function POST(req: Request) {
   if (!room) {
     return NextResponse.json({ error: "Room not found" }, { status: 404 });
   }
+  if (room.comingSoon) {
+    return NextResponse.json({ error: "This room is coming soon and cannot be booked yet" }, { status: 403 });
+  }
   if (guests > room.maxGuests) {
     return NextResponse.json(
       { error: `Maximum ${room.maxGuests} guests for this room` },
       { status: 400 },
     );
   }
-  const available = await isRoomAvailable(roomSlug, checkIn, checkOut);
+  const available = await isRoomAvailable(roomSlug, checkIn, checkOut, room.inventory);
+  const unitsAvailable = available
+    ? await getUnitsAvailable(roomSlug, checkIn, checkOut, room.inventory)
+    : 0;
   const { nights, totalRupees } = computeStayTotalPaise(
     checkIn,
     checkOut,
@@ -87,6 +93,8 @@ export async function POST(req: Request) {
   }
   return NextResponse.json({
     available,
+    unitsAvailable,
+    inventory: room.inventory,
     nights,
     totalRupees,
     currency: "INR",

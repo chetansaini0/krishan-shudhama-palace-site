@@ -66,6 +66,9 @@ export async function POST(req: Request) {
   if (!room) {
     return NextResponse.json({ error: "Room not found" }, { status: 404 });
   }
+  if (room.comingSoon) {
+    return NextResponse.json({ error: "This room is coming soon and cannot be booked yet" }, { status: 403 });
+  }
   if (data.guests > room.maxGuests) {
     return NextResponse.json({ error: "Too many guests" }, { status: 400 });
   }
@@ -105,7 +108,7 @@ export async function POST(req: Request) {
         const checkIn = new Date(data.checkIn);
         const checkOut = new Date(data.checkOut);
         const now = new Date();
-        const overlap = await BookingModel.findOne({
+        const overlapCount = await BookingModel.countDocuments({
           roomSlug: data.roomSlug,
           $or: [
             { status: "confirmed" },
@@ -113,10 +116,8 @@ export async function POST(req: Request) {
           ],
           checkIn: { $lt: checkOut },
           checkOut: { $gt: checkIn },
-        })
-          .session(session)
-          .lean();
-        if (overlap) {
+        }).session(session);
+        if (overlapCount >= room.inventory) {
           throw new Error("Room no longer available for these dates");
         }
 

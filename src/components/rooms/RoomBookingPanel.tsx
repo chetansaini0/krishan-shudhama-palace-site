@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { CalendarRange } from "lucide-react";
 import type { RoomPublic } from "@/data/static-rooms";
 import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 
 export function RoomBookingPanel({ room }: { room: RoomPublic }) {
   const router = useRouter();
@@ -21,6 +22,7 @@ export function RoomBookingPanel({ room }: { room: RoomPublic }) {
   );
 
   async function checkAndBook() {
+    if (room.comingSoon) return;
     setLoading(true);
     setHint(null);
     try {
@@ -43,6 +45,37 @@ export function RoomBookingPanel({ room }: { room: RoomPublic }) {
 
   const inputCls = "mt-1.5 w-full rounded-xl border border-gold/15 bg-cream/30 px-4 py-3 text-sm text-navy outline-none focus:border-gold/40 focus:ring-2 focus:ring-gold/10";
 
+  if (room.comingSoon) {
+    return (
+      <aside className="h-fit rounded-2xl bg-navy p-8 text-ivory shadow-xl lg:p-10">
+        <div className="flex items-center gap-3">
+          <CalendarRange className="h-5 w-5 text-gold" />
+          <h2 className="font-serif text-xl">{room.name}</h2>
+        </div>
+        <p className="mt-6 rounded-xl border border-gold/25 bg-gold/10 px-4 py-5 text-center font-serif text-2xl text-gold">
+          Coming Soon
+        </p>
+        <p className="mt-4 text-sm leading-relaxed text-ivory/60">
+          Executive Club rooms are launching shortly. Book Deluxe King or Royal Suite now, or contact us for updates.
+        </p>
+        <div className="mt-6 flex flex-col gap-3">
+          <Link
+            href="/rooms"
+            className="flex items-center justify-center rounded-xl bg-gold py-3 text-sm font-semibold text-navy transition hover:bg-gold-light"
+          >
+            View Available Rooms
+          </Link>
+          <Link
+            href="/contact"
+            className="flex items-center justify-center rounded-xl border border-ivory/15 py-3 text-sm text-ivory/70 transition hover:border-gold/30 hover:text-gold"
+          >
+            Contact Us
+          </Link>
+        </div>
+      </aside>
+    );
+  }
+
   return (
     <aside className="h-fit rounded-2xl bg-navy p-8 text-ivory shadow-xl lg:p-10">
       <div className="flex items-center gap-3">
@@ -59,7 +92,11 @@ export function RoomBookingPanel({ room }: { room: RoomPublic }) {
       {room.sizeSqFt && (
         <p className="mt-2 text-xs text-ivory/40">
           {room.sizeSqFt} sqft · Max {room.maxGuests} guests
+          {!room.comingSoon && room.inventory > 0 ? ` · ${room.inventory} rooms` : ""}
         </p>
+      )}
+      {!room.sizeSqFt && !room.comingSoon && room.inventory > 0 && (
+        <p className="mt-2 text-xs text-ivory/40">{room.inventory} rooms available</p>
       )}
 
       <div className="mt-6 space-y-4">

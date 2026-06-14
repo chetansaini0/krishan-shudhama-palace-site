@@ -6,12 +6,16 @@ import { BookingModel } from "@/models/Booking";
 import { rupeesToPaise } from "@/lib/pricing";
 import { getClientIp } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { enforceSameOrigin } from "@/lib/csrf";
 
 const Body = z.object({
   bookingId: z.string().min(1),
 });
 
 export async function POST(req: Request) {
+  const csrf = enforceSameOrigin(req);
+  if (csrf) return csrf;
+
   const ip = getClientIp(req);
   const gate = checkRateLimit(`razorpay-order:${ip}`, 10, 60_000);
   if (!gate.ok) {

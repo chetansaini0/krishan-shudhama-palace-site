@@ -45,7 +45,7 @@ export function HomeHero() {
       >
         <Image
           src={HOTEL.heroVideoPoster}
-          alt={`${HOTEL.name} hero visual`}
+          alt={`${HOTEL.name} — best luxury hotel in Khatoo near Khatu Shyam Temple`}
           fill
           priority
           sizes="100vw"

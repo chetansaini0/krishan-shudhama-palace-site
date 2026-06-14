@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { BookingFlow } from "@/components/booking/BookingFlow";
-import { getRooms } from "@/lib/rooms";
+import { getRooms, getBookableRooms } from "@/lib/rooms";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Book Your Stay",
-  description: "Secure direct booking at Krishan Shudhama Palace — stay beside Khatu Shyam Ji.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Book Hotel in Khatoo — Direct Booking Near Khatu Shyam Ji",
+  description:
+    "Book your stay at the best hotel near Khatu Shyam Temple. Secure direct booking, best rates, instant confirmation at Krishan Shudhama Palace, Khatoo.",
+  path: "/book",
+});
 
 export default async function BookPage() {
-  const rooms = await getRooms();
+  const rooms = getBookableRooms(await getRooms());
 
   return (
     <div className="bg-ivory pt-28 pb-20 lg:pt-36">

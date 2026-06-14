@@ -1,26 +1,17 @@
-import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
+#!/usr/bin/env node
+/**
+ * Seed MongoDB with default rooms from static-rooms data.
+ * Usage: MONGODB_URI="mongodb+srv://..." node scripts/seed-database.mjs
+ */
+import mongoose from "mongoose";
 
-export type RoomPublic = {
-  slug: string;
-  name: string;
-  category: "deluxe" | "suite" | "executive";
-  tagline: string;
-  description: string;
-  images: string[];
-  amenities: string[];
-  basePrice: number;
-  weekendMultiplier: number;
-  maxGuests: number;
-  sizeSqFt?: number;
-  inventory: number;
-  comingSoon?: boolean;
-};
-
-export function isRoomBookable(room: RoomPublic): boolean {
-  return !room.comingSoon;
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+  console.error("Set MONGODB_URI environment variable.");
+  process.exit(1);
 }
 
-export const STATIC_ROOMS: RoomPublic[] = [
+const rooms = [
   {
     slug: "deluxe-king",
     name: "Deluxe King",
@@ -44,6 +35,7 @@ export const STATIC_ROOMS: RoomPublic[] = [
     maxGuests: 2,
     sizeSqFt: 340,
     inventory: 4,
+    active: true,
   },
   {
     slug: "royal-suite",
@@ -54,7 +46,7 @@ export const STATIC_ROOMS: RoomPublic[] = [
       "A separate living area, refined dining nook, and panoramic views create an unmistakably residential feel — ideal for extended visits and quiet evenings in.",
     images: [
       "/images/rooms/royal-suite-main.png",
-      SPIRITUAL_IMAGES.luxuryInterior,
+      "/images/our-story-room.png",
     ],
     amenities: [
       "Separate living & bedroom",
@@ -68,6 +60,7 @@ export const STATIC_ROOMS: RoomPublic[] = [
     maxGuests: 4,
     sizeSqFt: 720,
     inventory: 4,
+    active: true,
   },
   {
     slug: "executive-club",
@@ -92,6 +85,37 @@ export const STATIC_ROOMS: RoomPublic[] = [
     maxGuests: 3,
     sizeSqFt: 420,
     inventory: 0,
+    active: true,
     comingSoon: true,
   },
 ];
+
+const RoomSchema = new mongoose.Schema(
+  {
+    slug: { type: String, required: true, unique: true },
+    name: String,
+    category: String,
+    tagline: String,
+    description: String,
+    images: [String],
+    amenities: [String],
+    basePrice: Number,
+    weekendMultiplier: Number,
+    maxGuests: Number,
+    sizeSqFt: Number,
+    inventory: { type: Number, default: 1 },
+    active: { type: Boolean, default: true },
+    comingSoon: { type: Boolean, default: false },
+  },
+  { timestamps: true },
+);
+
+const Room = mongoose.models.Room ?? mongoose.model("Room", RoomSchema);
+
+await mongoose.connect(MONGODB_URI);
+for (const room of rooms) {
+  await Room.findOneAndUpdate({ slug: room.slug }, room, { upsert: true, new: true });
+  console.log(`✓ ${room.slug}`);
+}
+console.log("\nDone — 3 rooms seeded.");
+await mongoose.disconnect();

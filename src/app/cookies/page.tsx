@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Cookie Policy",
   description: `How ${HOTEL.name} uses cookies and similar technologies on our website.`,
-  alternates: { canonical: "/cookies" },
-  robots: { index: true, follow: true },
-};
+  path: "/cookies",
+  keywords: [HOTEL.name],
+});
 
 const LAST_UPDATED = "May 2026";
 

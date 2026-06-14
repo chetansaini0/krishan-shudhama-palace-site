@@ -14,7 +14,9 @@ export type RoomDocument = {
   weekendMultiplier: number;
   maxGuests: number;
   sizeSqFt?: number;
+  inventory: number;
   active: boolean;
+  comingSoon?: boolean;
 };
 
 const RoomSchema = new Schema<RoomDocument>(
@@ -34,7 +36,9 @@ const RoomSchema = new Schema<RoomDocument>(
     weekendMultiplier: { type: Number, default: 1 },
     maxGuests: { type: Number, required: true },
     sizeSqFt: { type: Number },
+    inventory: { type: Number, default: 1, min: 0 },
     active: { type: Boolean, default: true },
+    comingSoon: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
@@ -55,5 +59,7 @@ export function roomDocToPublic(doc: RoomDocument): RoomPublic {
     weekendMultiplier: doc.weekendMultiplier,
     maxGuests: doc.maxGuests,
     sizeSqFt: doc.sizeSqFt,
+    inventory: doc.inventory ?? 1,
+    comingSoon: doc.comingSoon ?? false,
   };
 }

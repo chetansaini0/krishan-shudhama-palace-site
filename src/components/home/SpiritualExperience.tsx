@@ -18,9 +18,18 @@ const stats = [
 ];
 
 const highlights = [
-  { src: "/images/story/discover-room-2.png", alt: "Comfortable hotel room with elegant bed setup" },
-  { src: "/images/story/discover-restaurant.png", alt: "In-house restaurant seating area" },
-  { src: "/images/story/discover-dish.png", alt: "Freshly served signature dish" },
+  {
+    src: "/images/story/discover-room-2.png",
+    alt: "Luxury hotel room in Khatoo near Khatu Shyam Ji at Krishan Shudhama Palace",
+  },
+  {
+    src: "/images/story/discover-restaurant.png",
+    alt: "Pure vegetarian restaurant at hotel near Khatu Shyam Temple",
+  },
+  {
+    src: "/images/story/discover-dish.png",
+    alt: "Rajasthani thali served at best hotel in Khatoo",
+  },
 ];
 
 export function SpiritualExperience() {
@@ -52,7 +61,7 @@ export function SpiritualExperience() {
               >
                 <Image
                   src={SPIRITUAL_IMAGES.luxuryInterior}
-                  alt="Luxury palace interior"
+                  alt="Palace-style luxury hotel interior in Khatoo near Khatu Shyam Temple"
                   fill
                   className="object-cover"
                   sizes="(max-width:1024px) 100vw, 50vw"

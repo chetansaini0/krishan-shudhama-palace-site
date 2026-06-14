@@ -14,8 +14,14 @@ const Body = z.object({
   guestCount: z.number().int().min(1),
   eventDate: z.string().optional(),
   preferredDate: z.string().optional(),
-  message: z.string().min(10).optional(),
-  notes: z.string().min(10).optional(),
+  message: z
+    .string()
+    .optional()
+    .transform((v) => (v?.trim() ? v.trim() : undefined)),
+  notes: z
+    .string()
+    .optional()
+    .transform((v) => (v?.trim() ? v.trim() : undefined)),
   website: z.string().optional(),
 });
 

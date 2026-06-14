@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { HomeHero } from "@/components/home/HomeHero";
+import { buildPageMetadata } from "@/lib/seo";
 import { SpiritualExperience } from "@/components/home/SpiritualExperience";
 import { RoomCard } from "@/components/rooms/RoomCard";
 import { Container } from "@/components/ui/Container";
@@ -31,6 +33,13 @@ const MapPreview = dynamic(
   { loading: () => <HomeSectionSkeleton /> },
 );
 
+export const metadata: Metadata = buildPageMetadata({
+  title: "Best Hotel in Khatoo Near Khatu Shyam Temple",
+  description:
+    "Krishan Shudhama Palace — the best hotel in Khatoo near Khatu Shyam Ji. Luxury rooms, pure veg dining, banquet hall & secure direct booking. Walk to the temple.",
+  path: "/",
+});
+
 export default async function HomePage() {
   const rooms = await getRooms();
 
@@ -45,8 +54,8 @@ export default async function HomePage() {
           <Container>
             <SectionTitle
               eyebrow="Accommodations"
-              title="Rooms & suites crafted for comfort"
-              subtitle="Rajasthani-inspired interiors, restful silence, and attentive service — so you return from darshan to true comfort."
+              title="Luxury rooms in Khatoo near Khatu Shyam Ji"
+              subtitle="Deluxe, suite, and executive rooms with Rajasthani-inspired interiors — the best stay near Khatu Shyam Temple for pilgrims, families, and celebrations."
             />
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {rooms.map((room, i) => (
@@ -86,8 +95,8 @@ export default async function HomePage() {
                 Plan your stay with us
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ivory/50">
-                More than a room near Khatu Shyam Ji — a peaceful, premium experience rooted
-                in seva and Rajasthani warmth.
+                Book the best hotel in Khatoo for your Khatu Shyam yatra — peaceful rooms,
+                pure vegetarian dining, and palace-style hospitality steps from the temple.
               </p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <Link

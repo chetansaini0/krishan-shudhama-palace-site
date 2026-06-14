@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import type { RoomPublic } from "@/data/static-rooms";
-import { ArrowUpRight, Users, Maximize } from "lucide-react";
+import { BedDouble, Users, Maximize, ArrowUpRight } from "lucide-react";
 
 export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number }) {
   const img = room.images[0];
@@ -33,10 +33,16 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
         <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/20 to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
 
         <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-navy">
-          {room.category}
+          {room.comingSoon ? "Coming Soon" : room.category}
         </span>
 
         <div className="absolute bottom-4 right-4 flex items-center gap-3 text-xs text-ivory/80">
+          {!room.comingSoon && room.inventory > 0 && (
+            <span className="flex items-center gap-1">
+              <BedDouble className="h-3 w-3" />
+              {room.inventory} rooms
+            </span>
+          )}
           {room.sizeSqFt && (
             <span className="flex items-center gap-1">
               <Maximize className="h-3 w-3" />
@@ -59,11 +65,20 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
             <p className="mt-1 text-sm text-charcoal/50">{room.tagline}</p>
           </div>
           <div className="shrink-0 text-right">
-            <p className="text-[10px] uppercase tracking-widest text-gold-muted">From</p>
-            <p className="font-serif text-2xl text-navy">
-              ₹{room.basePrice.toLocaleString("en-IN")}
-            </p>
-            <p className="text-[11px] text-charcoal/40">per night</p>
+            {room.comingSoon ? (
+              <>
+                <p className="text-[10px] uppercase tracking-widest text-gold-muted">Status</p>
+                <p className="font-serif text-xl text-navy">Coming Soon</p>
+              </>
+            ) : (
+              <>
+                <p className="text-[10px] uppercase tracking-widest text-gold-muted">From</p>
+                <p className="font-serif text-2xl text-navy">
+                  ₹{room.basePrice.toLocaleString("en-IN")}
+                </p>
+                <p className="text-[11px] text-charcoal/40">per night</p>
+              </>
+            )}
           </div>
         </div>
 

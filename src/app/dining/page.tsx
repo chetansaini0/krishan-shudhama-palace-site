@@ -4,14 +4,16 @@ import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
 import { HOTEL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Clock, Leaf, UtensilsCrossed, Coffee, Wine } from "lucide-react";
 import { RollingNumber } from "@/components/effects/RollingNumber";
 
-export const metadata: Metadata = {
-  title: "Dining",
-  description: `Multi-cuisine restaurant and dining experiences at ${HOTEL.name}.`,
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Pure Veg Dining — Restaurant at Hotel in Khatoo",
+  description: `100% pure vegetarian restaurant at ${HOTEL.name} — Rajasthani thali, satvik & multi-cuisine dining near Khatu Shyam Temple, Khatoo.`,
+  path: "/dining",
+});
 
 const menuHighlights = [
   { category: "Rajasthani Thali", items: ["Dal Baati Churma", "Gatte ki Sabzi", "Ker Sangri", "Bajra Roti"] },
