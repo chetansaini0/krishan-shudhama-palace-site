@@ -57,7 +57,10 @@ export const HOTEL = {
     "https://www.google.com/maps/search/?api=1&query=27.3660278,75.3936111",
   ),
   social: {
-    instagram: pe("NEXT_PUBLIC_INSTAGRAM_URL", "https://instagram.com"),
+    instagram: pe(
+      "NEXT_PUBLIC_INSTAGRAM_URL",
+      "https://www.instagram.com/krishan_shudhama_palace/",
+    ),
     facebook: pe("NEXT_PUBLIC_FACEBOOK_URL", "https://facebook.com"),
   },
   reviewsUrl: pe(

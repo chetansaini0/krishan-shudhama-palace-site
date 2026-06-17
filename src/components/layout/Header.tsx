@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { HOTEL } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
+import { useScrollLock } from "@/lib/useScrollLock";
 
 const stayLinks = [
   { href: "/rooms", label: "Rooms & Suites" },
@@ -56,6 +57,8 @@ export function Header() {
   const [openDropdown, setOpenDropdown] = useState<"stay" | "restaurant" | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const rootRef = useRef<HTMLElement | null>(null);
+
+  useScrollLock(open);
 
   useEffect(() => {
     let ticking = false;

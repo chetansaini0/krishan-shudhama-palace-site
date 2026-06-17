@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useScrollLock } from "@/lib/useScrollLock";
 
 type GalleryItem = {
   src: string;
@@ -29,6 +30,8 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
 
   const filtered = filter === "all" ? items : items.filter((i) => i.category === filter);
 
+  useScrollLock(lightbox !== null);
+
   const openLightbox = (i: number) => setLightbox(i);
   const closeLightbox = () => setLightbox(null);
 
@@ -50,11 +53,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
       if (e.key === "ArrowRight") next();
     };
     window.addEventListener("keydown", handler);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", handler);
-      document.body.style.overflow = "";
-    };
+    return () => window.removeEventListener("keydown", handler);
   }, [lightbox, prev, next]);
 
   return (

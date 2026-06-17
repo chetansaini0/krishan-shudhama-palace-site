@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
+import { useScrollLock } from "@/lib/useScrollLock";
 
 export function OfferPopup() {
   const [open, setOpen] = useState(false);
+
+  useScrollLock(open);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
