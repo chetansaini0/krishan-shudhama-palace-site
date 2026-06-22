@@ -25,7 +25,7 @@ const quickLinks = [
 const socialLinks = [
   { href: HOTEL.social.instagram, label: "Instagram" },
   { href: HOTEL.social.facebook, label: "Facebook" },
-];
+].filter((link) => link.href.trim().length > 0);
 
 export function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");

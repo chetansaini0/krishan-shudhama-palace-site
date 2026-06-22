@@ -61,15 +61,16 @@ export const HOTEL = {
       "NEXT_PUBLIC_INSTAGRAM_URL",
       "https://www.instagram.com/krishan_shudhama_palace/",
     ),
-    facebook: pe("NEXT_PUBLIC_FACEBOOK_URL", "https://facebook.com"),
+    /** Leave empty until Facebook page is created — set NEXT_PUBLIC_FACEBOOK_URL in Vercel. */
+    facebook: pe("NEXT_PUBLIC_FACEBOOK_URL", ""),
   },
   reviewsUrl: pe(
     "NEXT_PUBLIC_REVIEWS_URL",
-    "https://www.google.com/maps/search/?api=1&query=Krishan+Shudhama+Palace+Khatu+Rajasthan",
+    "https://www.google.com/maps/place/?q=place_id:ChIJf3y_gV7tbDkR_sHEBjQk-QI",
   ),
   heroVideoPoster: pe("NEXT_PUBLIC_HERO_POSTER_URL", SPIRITUAL_IMAGES.lampsWarmth),
   heroVideoSrc: pe("NEXT_PUBLIC_HERO_VIDEO_URL", SPIRITUAL_VIDEOS.cinematicParticles),
-  googlePlaceId: pe("NEXT_PUBLIC_GOOGLE_PLACE_ID", ""),
+  googlePlaceId: pe("NEXT_PUBLIC_GOOGLE_PLACE_ID", "ChIJf3y_gV7tbDkR_sHEBjQk-QI"),
 };
 
 export const BANQUET = {
