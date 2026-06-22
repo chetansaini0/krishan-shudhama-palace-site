@@ -5,6 +5,7 @@ import { ContactInquiryModel } from "@/models/ContactInquiry";
 import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { enforceSameOrigin } from "@/lib/csrf";
+import { notifyStaffContactInquiry } from "@/lib/notifications";
 
 const Body = z.object({
   name: z.string().min(2),
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
       source: "website",
       status: "new",
     });
+    void notifyStaffContactInquiry(parsed.data);
   } else {
     console.info("[contact inquiry demo]", parsed.data);
   }

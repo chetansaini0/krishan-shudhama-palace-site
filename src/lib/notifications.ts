@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { format } from "date-fns";
 import { HOTEL } from "@/lib/constants";
+import { hotelOpsEmail } from "@/lib/hotel-email";
 
 function formatInr(n: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -155,10 +156,21 @@ export async function notifyBookingConfirmed(booking: {
       await resend.emails.send({
         from,
         to: booking.email,
+        replyTo: hotelOpsEmail(),
         subject: `Booking confirmed — ${HOTEL.shortName}`,
         html: bookingEmailHtml(payload),
       });
       emailSent = true;
+
+      void sendStaffEmail(
+        `New paid booking — ${booking.guestName}`,
+        `<p><strong>Guest:</strong> ${booking.guestName}</p>
+         <p><strong>Email:</strong> ${booking.email}</p>
+         <p><strong>Phone:</strong> ${booking.phone}</p>
+         <p><strong>Room:</strong> ${booking.roomSlug}</p>
+         <p><strong>Stay:</strong> ${format(booking.checkIn, "dd MMM yyyy")} → ${format(booking.checkOut, "dd MMM yyyy")}</p>
+         <p><strong>Total:</strong> ${formatInr(booking.totalAmount)}</p>`,
+      ).catch((e) => console.error("[notifyStaffBooking]", e));
     } catch (e) {
       errors.push(`Resend: ${e instanceof Error ? e.message : String(e)}`);
     }
@@ -194,4 +206,60 @@ export async function notifyBookingConfirmed(booking: {
   }
 
   return { emailSent, smsSent, skipped, errors };
+}
+
+async function sendStaffEmail(subject: string, html: string): Promise<void> {
+  const resendKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL;
+  if (!resendKey || !from) return;
+
+  const resend = new Resend(resendKey);
+  await resend.emails.send({
+    from,
+    to: hotelOpsEmail(),
+    replyTo: hotelOpsEmail(),
+    subject,
+    html,
+  });
+}
+
+export async function notifyStaffContactInquiry(data: {
+  name: string;
+  phone: string;
+  email?: string;
+  message: string;
+}): Promise<void> {
+  try {
+    await sendStaffEmail(
+      `New website inquiry — ${data.name}`,
+      `<p><strong>Name:</strong> ${data.name}</p>
+       <p><strong>Phone:</strong> ${data.phone}</p>
+       ${data.email ? `<p><strong>Email:</strong> ${data.email}</p>` : ""}
+       <p><strong>Message:</strong><br/>${data.message.replace(/\n/g, "<br/>")}</p>`,
+    );
+  } catch (e) {
+    console.error("[notifyStaffContactInquiry]", e);
+  }
+}
+
+export async function notifyStaffEventInquiry(data: {
+  name: string;
+  email: string;
+  phone: string;
+  eventType: string;
+  guestCount: number;
+  message: string;
+}): Promise<void> {
+  try {
+    await sendStaffEmail(
+      `New banquet inquiry — ${data.name}`,
+      `<p><strong>Name:</strong> ${data.name}</p>
+       <p><strong>Email:</strong> ${data.email}</p>
+       <p><strong>Phone:</strong> ${data.phone}</p>
+       <p><strong>Event:</strong> ${data.eventType} · ${data.guestCount} guests</p>
+       <p><strong>Details:</strong><br/>${data.message.replace(/\n/g, "<br/>")}</p>`,
+    );
+  } catch (e) {
+    console.error("[notifyStaffEventInquiry]", e);
+  }
 }

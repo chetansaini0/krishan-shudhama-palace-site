@@ -5,6 +5,7 @@ import { EventInquiryModel } from "@/models/EventInquiry";
 import { getClientIp, isJsonRequest } from "@/lib/request";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { enforceSameOrigin } from "@/lib/csrf";
+import { notifyStaffEventInquiry } from "@/lib/notifications";
 
 const Body = z.object({
   name: z.string().min(2),
@@ -79,6 +80,15 @@ export async function POST(req: Request) {
         : undefined,
     message: d.message ?? d.notes ?? "Event inquiry submitted from website.",
     status: "new",
+  });
+
+  void notifyStaffEventInquiry({
+    name: d.name,
+    email: d.email,
+    phone: d.phone,
+    eventType: d.eventType,
+    guestCount: d.guestCount,
+    message: d.message ?? d.notes ?? "Event inquiry submitted from website.",
   });
 
   return NextResponse.json({

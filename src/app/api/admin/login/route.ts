@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { hotelOpsEmail } from "@/lib/hotel-email";
 import bcrypt from "bcryptjs";
 import { createAdminToken } from "@/lib/auth";
 import { getClientIp } from "@/lib/request";
@@ -30,14 +31,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 400 });
   }
 
-  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminEmail = hotelOpsEmail();
   const hash = process.env.ADMIN_PASSWORD_HASH;
   const plain = process.env.ADMIN_PASSWORD;
   const isProd = process.env.NODE_ENV === "production";
 
   if (!adminEmail) {
     return NextResponse.json(
-      { error: "Admin not configured (ADMIN_EMAIL)" },
+      { error: "Admin not configured (hotel email)" },
       { status: 503 },
     );
   }
