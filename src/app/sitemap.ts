@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog-posts";
-import { getRooms } from "@/lib/rooms";
+import { getPublicRooms, getRooms } from "@/lib/rooms";
 import { siteUrl } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           : 0.7,
   }));
 
-  const rooms = await getRooms();
+  const rooms = getPublicRooms(await getRooms());
   const roomRoutes = rooms.map((room) => ({
     url: `${base}/rooms/${room.slug}`,
     lastModified: new Date(),

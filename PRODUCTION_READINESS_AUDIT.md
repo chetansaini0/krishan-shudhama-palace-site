@@ -172,7 +172,9 @@ public/images/    — Optimized hotel photography
 - [ ] Google Business Profile link + Place ID in env
 - [ ] Email domain verification (Resend) for booking confirmations
 - [ ] MSG91 SMS template for booking confirmations
-- [ ] Real Instagram/Facebook URLs (currently placeholders)
+- [x] Real Instagram URL (Facebook left empty until page exists — footer hides empty links)
+- [x] Cookie consent banner + `/cookies` policy
+- [x] Dedicated `/testimonials` page
 
 ### Requires User Action Before Go-Live 🔴
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to production domain

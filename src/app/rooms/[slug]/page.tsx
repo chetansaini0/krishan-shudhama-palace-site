@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Container } from "@/components/ui/Container";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
-import { getRoomBySlug, getRooms } from "@/lib/rooms";
+import { getPublicRooms, getRoomBySlug, getRooms } from "@/lib/rooms";
 import { RoomBookingPanel } from "@/components/rooms/RoomBookingPanel";
 import { buildPageMetadata } from "@/lib/seo";
 import { Check, Users, Maximize, ArrowLeft } from "lucide-react";
@@ -13,17 +13,15 @@ import { Check, Users, Maximize, ArrowLeft } from "lucide-react";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  const rooms = await getRooms();
+  const rooms = getPublicRooms(await getRooms());
   return rooms.map((r) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const room = await getRoomBySlug(slug);
-  if (!room) return { title: "Room" };
-  const description = room.comingSoon
-    ? `${room.name} at ${room.tagline} — launching soon at Krishan Shudhama Palace, the best hotel in Khatoo near Khatu Shyam Temple.`
-    : `Book ${room.name} at the best hotel in Khatoo near Khatu Shyam Temple — ${room.tagline}. From ₹${room.basePrice.toLocaleString("en-IN")}/night with direct booking.`;
+  if (!room || room.comingSoon) return { title: "Room" };
+  const description = `Book ${room.name} at the best hotel in Khatoo near Khatu Shyam Temple — ${room.tagline}. From ₹${room.basePrice.toLocaleString("en-IN")}/night with direct booking.`;
   return buildPageMetadata({
     title: `${room.name} — Luxury Room in Khatoo Near Khatu Shyam Ji`,
     description,
@@ -35,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RoomDetailPage({ params }: Props) {
   const { slug } = await params;
   const room = await getRoomBySlug(slug);
-  if (!room) notFound();
+  if (!room || room.comingSoon) notFound();
 
   return (
     <div className="bg-ivory">

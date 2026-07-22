@@ -3,18 +3,18 @@ import { RoomsClient } from "@/components/rooms/RoomsClient";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
-import { getRooms } from "@/lib/rooms";
+import { getPublicRooms, getRooms } from "@/lib/rooms";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Rooms in Khatoo — Luxury Hotel Near Khatu Shyam Temple",
   description:
-    "Book luxury rooms in Khatoo at Krishan Shudhama Palace — Deluxe King from ₹1,500, Royal Suite from ₹2,500 near Khatu Shyam Ji. Executive Club coming soon.",
+    "Book luxury rooms in Khatoo at Krishan Shudhama Palace — Deluxe King from ₹1,500 and Royal Suite from ₹2,500 near Khatu Shyam Ji.",
   path: "/rooms",
 });
 
 export default async function RoomsPage() {
-  const rooms = await getRooms();
+  const rooms = getPublicRooms(await getRooms());
 
   return (
     <div className="bg-ivory pt-28 pb-20 lg:pt-36">

@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
 import { HomeSectionSkeleton } from "@/components/home/HomeSectionSkeleton";
-import { getRooms } from "@/lib/rooms";
+import { getPublicRooms, getRooms } from "@/lib/rooms";
 import { HOTEL } from "@/lib/constants";
 import Link from "next/link";
 
@@ -41,7 +41,7 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function HomePage() {
-  const rooms = await getRooms();
+  const rooms = getPublicRooms(await getRooms());
 
   return (
     <>
@@ -55,7 +55,7 @@ export default async function HomePage() {
             <SectionTitle
               eyebrow="Accommodations"
               title="Luxury rooms in Khatoo near Khatu Shyam Ji"
-              subtitle="Deluxe, suite, and executive rooms with Rajasthani-inspired interiors — the best stay near Khatu Shyam Temple for pilgrims, families, and celebrations."
+              subtitle="Deluxe and suite rooms with Rajasthani-inspired interiors — the best stay near Khatu Shyam Temple for pilgrims, families, and celebrations."
             />
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {rooms.map((room, i) => (

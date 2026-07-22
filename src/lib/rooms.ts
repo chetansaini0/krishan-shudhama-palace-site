@@ -62,6 +62,11 @@ export async function getRoomBySlug(slug: string): Promise<RoomPublic | null> {
   return list.find((r) => r.slug === slug) ?? null;
 }
 
+/** Guest-facing catalog — excludes rooms marked comingSoon. */
+export function getPublicRooms(rooms: RoomPublic[]): RoomPublic[] {
+  return rooms.filter((r) => !r.comingSoon);
+}
+
 export function getBookableRooms(rooms: RoomPublic[]): RoomPublic[] {
   return rooms.filter((r) => !r.comingSoon);
 }

@@ -1,10 +1,19 @@
+"use client";
+
 import Script from "next/script";
-import { Suspense } from "react";
+import { Suspense, useSyncExternalStore } from "react";
 import { AnalyticsPageView } from "@/components/seo/AnalyticsPageView";
+import { readCookieConsent, subscribeCookieConsent } from "@/lib/cookie-consent";
 
 export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
-  if (!gaId) return null;
+  const consent = useSyncExternalStore(
+    subscribeCookieConsent,
+    readCookieConsent,
+    () => null,
+  );
+
+  if (!gaId || consent !== "accepted") return null;
 
   return (
     <>

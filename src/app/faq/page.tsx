@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "What types of rooms are available in Khatoo?",
-    a: "We offer 4 Deluxe King rooms (₹1,500/night) for couples and 4 Royal Suites (₹2,500/night) for families — both with AC, Wi-Fi, and Rajasthani-inspired interiors near Khatu Shyam Temple. Executive Club is coming soon.",
+    a: "We offer 4 Deluxe King rooms (₹1,500/night) for couples and 4 Royal Suites (₹2,500/night) for families — both with AC, Wi-Fi, and Rajasthani-inspired interiors near Khatu Shyam Temple.",
   },
   {
     q: "What are the check-in and check-out times?",

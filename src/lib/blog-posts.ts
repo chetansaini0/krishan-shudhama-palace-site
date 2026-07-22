@@ -103,7 +103,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Luxury rooms for every traveller",
         paragraphs: [
-          "From Deluxe King rooms for couples to Royal Suites for families and Executive Club for business travellers, we offer luxury accommodation in Khatoo with Rajasthani-inspired interiors, climate control, and attentive service.",
+          "From Deluxe King rooms for couples to Royal Suites for families, we offer luxury accommodation in Khatoo with Rajasthani-inspired interiors, climate control, and attentive service.",
         ],
       },
       {
