@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
 
     return [
       {
+        source: "/maintenance",
+        headers: [
+          { key: "Retry-After", value: "86400" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "Cache-Control", value: "no-store, no-cache, must-revalidate" },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           ...(isDev

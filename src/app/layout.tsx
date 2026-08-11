@@ -9,6 +9,7 @@ import { HOTEL } from "@/lib/constants";
 import { ClientEnhancements } from "@/components/layout/ClientEnhancements";
 import { metadataBaseUrl } from "@/lib/site-url";
 import { SEO_KEYWORDS } from "@/lib/seo";
+import { isMaintenanceMode } from "@/lib/maintenance";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -37,17 +38,24 @@ export const metadata: Metadata = {
   },
   description:
     "Book the best hotel in Khatoo (Khatu) near Khatu Shyam Temple — luxury rooms, pure veg dining, banquet hall & direct booking at Krishan Shudhama Palace.",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-      "max-snippet": -1,
-    },
-  },
+  robots: isMaintenanceMode()
+    ? {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: { index: false, follow: false, noimageindex: true },
+      }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-video-preview": -1,
+          "max-snippet": -1,
+        },
+      },
   keywords: [...SEO_KEYWORDS],
   openGraph: {
     title: HOTEL.name,
@@ -74,26 +82,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locked = isMaintenanceMode();
+
   return (
-    <html lang="en-IN">
-      <body
-        className="min-h-screen w-full min-w-0 antialiased"
-      >
-        <a
-          href="#main-content"
-          className="sr-only z-[120] rounded bg-navy px-4 py-2 text-sm font-medium text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
-        >
-          Skip to content
-        </a>
-        <ClientEnhancements />
-        <Analytics />
-        <JsonLd />
-        <Header />
-        <main id="main-content" className="min-h-[70vh] w-full min-w-0">
-          {children}
-        </main>
-        <Footer />
-        <FloatingActions />
+    <html lang="en-IN" className={locked ? "maintenance-lock" : undefined}>
+      <body className={`min-h-screen w-full min-w-0 antialiased ${locked ? "bg-navy" : ""}`}>
+        {locked ? (
+          <main id="main-content">{children}</main>
+        ) : (
+          <>
+            <a
+              href="#main-content"
+              className="sr-only z-[120] rounded bg-navy px-4 py-2 text-sm font-medium text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+            >
+              Skip to content
+            </a>
+            <ClientEnhancements />
+            <Analytics />
+            <JsonLd />
+            <Header />
+            <main id="main-content" className="min-h-[70vh] w-full min-w-0">
+              {children}
+            </main>
+            <Footer />
+            <FloatingActions />
+          </>
+        )}
       </body>
     </html>
   );

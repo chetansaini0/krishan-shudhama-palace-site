@@ -1,9 +1,16 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import { isMaintenanceMode } from "@/lib/maintenance";
 import { getPublicRooms, getRooms } from "@/lib/rooms";
 import { siteUrl } from "@/lib/site-url";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (isMaintenanceMode()) {
+    return [];
+  }
+
   const base = siteUrl();
   const staticRoutes = [
     "",
