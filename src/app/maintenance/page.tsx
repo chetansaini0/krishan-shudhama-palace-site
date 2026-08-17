@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
-import { HOTEL } from "@/lib/constants";
+import { siteUrl } from "@/lib/site-url";
+
+function errorHost(): string {
+  try {
+    return new URL(siteUrl()).hostname;
+  } catch {
+    return "this site";
+  }
+}
 
 export const metadata: Metadata = {
-  title: { absolute: "Website Temporarily Unavailable" },
-  description: "This website has been temporarily disabled. Please contact the website owner for more information.",
+  title: { absolute: "503 Service Unavailable" },
+  description: "The server is temporarily unable to handle this request.",
+  applicationName: undefined,
+  keywords: [],
+  openGraph: undefined,
+  twitter: undefined,
   robots: {
     index: false,
     follow: false,
@@ -21,32 +33,19 @@ export const metadata: Metadata = {
 
 /**
  * Lock screen shown for every public URL while MAINTENANCE_MODE=true.
- * No navigation, footer, or links — crawlers receive noindex via metadata + headers.
+ * Styled as a generic HTTP 503 so it reads as a technical outage, not a brand page.
  */
 export default function MaintenancePage() {
+  const host = errorHost();
+
   return (
-    <div className="maintenance-screen">
-      <div className="maintenance-screen__glow" aria-hidden />
-      <div className="maintenance-screen__inner">
-        {/* eslint-disable-next-line @next/next/no-img-element -- lock page must not depend on the image optimizer */}
-        <img
-          src="/logo-light.png"
-          alt={HOTEL.name}
-          width={280}
-          height={120}
-          className="maintenance-screen__logo"
-        />
-
-        <div className="maintenance-screen__loader" role="status" aria-label="Unavailable">
-          <span className="maintenance-screen__spinner" aria-hidden />
-        </div>
-
-        <h1 className="maintenance-screen__title">Website Temporarily Unavailable</h1>
-        <p className="maintenance-screen__subtitle">
-          This website has been temporarily disabled.
-          <br />
-          Please contact the website owner for more information.
+    <div className="tech-error">
+      <div className="tech-error__inner">
+        <h1 className="tech-error__title">This page isn’t working</h1>
+        <p className="tech-error__lead">
+          {host} is currently unable to handle this request.
         </p>
+        <p className="tech-error__code">HTTP ERROR 503</p>
       </div>
     </div>
   );

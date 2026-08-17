@@ -31,6 +31,9 @@ export async function GET() {
         nights: b.nights,
         totalAmount: b.totalAmount,
         status: b.status,
+        paymentStatus: b.paymentStatus ?? "unpaid",
+        razorpayPaymentId: b.razorpayPaymentId,
+        refundId: b.refundId,
         createdAt: doc.createdAt,
       };
     }),

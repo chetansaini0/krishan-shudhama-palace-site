@@ -21,9 +21,9 @@ export const HOTEL = {
     "NEXT_PUBLIC_HOTEL_SPIRITUAL_LINE",
     "Perfect stay beside the temple · Peaceful hearts, blessed journeys",
   ),
-  phone: pe("NEXT_PUBLIC_HOTEL_PHONE", "+91 95098 22387"),
-  phoneTel: pe("NEXT_PUBLIC_HOTEL_PHONE_TEL", "tel:+919509822387"),
-  whatsapp: pe("NEXT_PUBLIC_WHATSAPP", "919509822387"),
+  phone: pe("NEXT_PUBLIC_HOTEL_PHONE", "+91 80034 02154"),
+  phoneTel: pe("NEXT_PUBLIC_HOTEL_PHONE_TEL", "tel:+918003402154"),
+  whatsapp: pe("NEXT_PUBLIC_WHATSAPP", "918003402154"),
   email: pe("NEXT_PUBLIC_HOTEL_EMAIL", "krishanshudhama1902@gmail.com"),
   addressLine: pe(
     "NEXT_PUBLIC_HOTEL_ADDRESS_LINE",

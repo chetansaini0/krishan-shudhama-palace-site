@@ -105,11 +105,63 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
       const data = await res.json();
       if (!res.ok) throw new Error(typeof data.error === "string" ? data.error : "Configure Razorpay keys + MongoDB.");
       const options = {
-        key: data.keyId, amount: data.amount, currency: data.currency,
-        name: HOTEL.name, description: "Room reservation", order_id: data.orderId,
-        handler: async (response: { razorpay_payment_id: string; razorpay_order_id: string; razorpay_signature: string }) => {
-          const verify = await fetch("/api/razorpay/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...response, bookingId }) });
-          if (!verify.ok) { setError("Payment verification failed"); return; }
+        key: data.keyId,
+        amount: data.amount,
+        currency: data.currency,
+        name: HOTEL.name,
+        description: `${room?.name ?? "Room"} reservation`,
+        order_id: data.orderId,
+        prefill: {
+          name: guestName,
+          email,
+          contact: phone.replace(/\s+/g, ""),
+        },
+        notes: {
+          bookingId,
+          roomSlug: room?.slug ?? "",
+        },
+        // Lead with UPI so guests see Scan QR / UPI apps first — no EMI
+        config: {
+          display: {
+            hide: [
+              { method: "emi" },
+              { method: "cardless_emi" },
+              { method: "paylater" },
+            ],
+            blocks: {
+              upi: {
+                name: "Pay with UPI / Scan QR",
+                instruments: [{ method: "upi" }],
+              },
+              other: {
+                name: "Other methods",
+                instruments: [
+                  { method: "card" },
+                  { method: "netbanking" },
+                  { method: "wallet" },
+                ],
+              },
+            },
+            sequence: ["block.upi", "block.other"],
+            preferences: {
+              show_default_blocks: false,
+            },
+          },
+        },
+        handler: async (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) => {
+          const verify = await fetch("/api/razorpay/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...response, bookingId }),
+          });
+          if (!verify.ok) {
+            setError("Payment received but verification failed. Please contact the hotel with your payment ID.");
+            return;
+          }
           setStep("done");
         },
         theme: { color: "#0a1628" },
@@ -140,7 +192,7 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
 
   return (
     <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
 
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-6 rounded-2xl border border-gold/10 bg-white p-8 shadow-lg lg:p-10">
@@ -189,7 +241,18 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
                   <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <p className="font-serif text-2xl text-navy">Booking Confirmed!</p>
-                <p className="mt-3 text-sm text-charcoal/55">Confirmation details will be sent via email and SMS.</p>
+                <p className="mt-3 text-sm text-charcoal/55">
+                  Payment successful. A confirmation email has been sent to <span className="font-medium text-navy">{email}</span>.
+                </p>
+                <p className="mt-2 text-sm text-charcoal/55">
+                  Our team has also been notified and may reach you on {phone || "your phone"} if needed.
+                </p>
+                <dl className="mx-auto mt-6 max-w-sm space-y-2 text-left text-sm text-charcoal/70">
+                  <div className="flex justify-between gap-4"><dt>Room</dt><dd className="font-medium text-navy">{room.name}</dd></div>
+                  <div className="flex justify-between gap-4"><dt>Stay</dt><dd className="font-medium text-navy">{checkIn} → {checkOut}</dd></div>
+                  <div className="flex justify-between gap-4"><dt>Guests</dt><dd className="font-medium text-navy">{guests}</dd></div>
+                  <div className="flex justify-between gap-4"><dt>Total paid</dt><dd className="font-medium text-navy">₹{summary?.totalRupees != null ? summary.totalRupees.toLocaleString("en-IN") : "—"}</dd></div>
+                </dl>
                 <Button href="/" variant="outline" className="mt-6">Return Home</Button>
               </motion.div>
             )}

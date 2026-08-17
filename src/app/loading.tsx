@@ -1,4 +1,10 @@
+import { isMaintenanceMode } from "@/lib/maintenance";
+
 export default function GlobalLoading() {
+  if (isMaintenanceMode()) {
+    return <div className="tech-error" aria-hidden />;
+  }
+
   return (
     <div className="min-h-[70vh] bg-ivory pt-28">
       <div className="mx-auto w-full max-w-6xl animate-pulse px-6 pb-16">

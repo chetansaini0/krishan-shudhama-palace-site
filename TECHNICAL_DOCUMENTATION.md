@@ -254,7 +254,7 @@ Home | Rooms & Amenities ▼ | Banquet | Restaurant ▼ | Gallery | Location | C
 | Purpose | Indian payment gateway |
 | Flow | create-order → checkout → verify + webhook |
 | Used in | `src/lib/payments.ts`, API routes under `/api/razorpay/` |
-| Alternatives | Stripe (limited India), PayU |
+| Alternatives | PayU (Razorpay is primary; do not use Stripe) |
 
 #### jose `^6.2.3`
 | Purpose | JWT sign/verify (Edge-compatible) |

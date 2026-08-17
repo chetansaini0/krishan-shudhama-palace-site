@@ -92,10 +92,87 @@ export async function finalizePaidBooking(input: {
   await booking.save();
 
   if (!booking.notificationsSentAt) {
-    void notifyBookingConfirmed(booking);
+    await notifyBookingConfirmed(booking);
     booking.notificationsSentAt = new Date();
     await booking.save();
   }
 
   return { ok: true, status: booking.status, idempotent: false };
+}
+
+/** Full Razorpay refund for a captured booking; marks booking cancelled + refunded. */
+export async function refundPaidBooking(input: {
+  bookingId: string;
+  reason?: string;
+}): Promise<
+  | { ok: true; refundId: string; status: BookingDocument["status"] }
+  | { ok: false; status: number; error: string }
+> {
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+  if (!keyId || !keySecret) {
+    return { ok: false, status: 503, error: "Payment gateway not configured" };
+  }
+
+  await connectDB();
+  const booking = await BookingModel.findById(input.bookingId);
+  if (!booking) {
+    return { ok: false, status: 404, error: "Booking not found" };
+  }
+  if (booking.paymentStatus === "refunded" && booking.refundId) {
+    return {
+      ok: true,
+      refundId: booking.refundId,
+      status: booking.status,
+    };
+  }
+  if (booking.paymentStatus !== "captured" || !booking.razorpayPaymentId) {
+    return {
+      ok: false,
+      status: 400,
+      error: "Only captured paid bookings can be refunded",
+    };
+  }
+
+  const Razorpay = (await import("razorpay")).default;
+  const rzp = new Razorpay({ key_id: keyId, key_secret: keySecret });
+  const amountPaise = rupeesToPaise(booking.totalAmount);
+
+  try {
+    const refund = await rzp.payments.refund(booking.razorpayPaymentId, {
+      amount: amountPaise,
+      speed: "normal",
+      notes: {
+        bookingId: String(booking._id),
+        reason: input.reason?.slice(0, 120) || "Admin refund",
+      },
+    });
+
+    booking.status = "cancelled";
+    booking.paymentStatus = "refunded";
+    booking.refundId = String(refund.id);
+    booking.refundedAt = new Date();
+    booking.pendingExpiresAt = undefined;
+    await booking.save();
+
+    return {
+      ok: true,
+      refundId: String(refund.id),
+      status: booking.status,
+    };
+  } catch (error) {
+    console.error("[refundPaidBooking]", error);
+    const message =
+      error &&
+      typeof error === "object" &&
+      "error" in error &&
+      error.error &&
+      typeof error.error === "object" &&
+      "description" in error.error
+        ? String((error.error as { description?: string }).description)
+        : error instanceof Error
+          ? error.message
+          : "Refund failed";
+    return { ok: false, status: 502, error: message };
+  }
 }

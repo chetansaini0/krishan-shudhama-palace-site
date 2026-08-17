@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
   // ——— Maintenance lock (payment / ops) ———
   if (isMaintenanceMode()) {
-    // Let the branded lock page, favicon, robots.txt, and static assets through.
+    // Let the 503 page, favicon, robots.txt, and static assets through.
     if (pathname === "/robots.txt" || pathname === "/favicon.ico" || isMaintenanceStaticAsset(pathname)) {
       return NextResponse.next();
     }
@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.json(
         {
           error: "Service Unavailable",
-          message: "This website is temporarily unavailable.",
+          message: "The server is temporarily unable to handle this request.",
         },
         { status: 503, headers: maintenanceResponseHeaders() },
       );

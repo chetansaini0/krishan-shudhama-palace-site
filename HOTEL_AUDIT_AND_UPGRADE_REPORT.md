@@ -75,7 +75,7 @@
 
 ## 4) Remaining Strategic Gaps (Recommended Next Phase)
 - Database modernization target (requested): PostgreSQL + Prisma migration.
-- Stripe integration and unified payment abstraction (Razorpay + Stripe).
+- Keep Razorpay as the sole payment provider (no Stripe).
 - Coupon + seasonal pricing engine with admin controls.
 - Reviews moderation workflow + anti-spam controls.
 - Real analytics dashboards (occupancy, ADR, RevPAR, revenue trends).

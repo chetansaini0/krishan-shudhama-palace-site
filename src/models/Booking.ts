@@ -19,8 +19,10 @@ export type BookingDocument = {
   razorpayOrderId?: string;
   razorpayPaymentId?: string;
   razorpaySignature?: string;
-  paymentStatus?: "unpaid" | "captured" | "failed";
+  paymentStatus?: "unpaid" | "captured" | "failed" | "refunded";
   paymentVerifiedAt?: Date;
+  refundId?: string;
+  refundedAt?: Date;
   notificationsSentAt?: Date;
   userId?: Types.ObjectId;
   notes?: string;
@@ -50,11 +52,13 @@ const BookingSchema = new Schema<BookingDocument>(
     razorpaySignature: { type: String },
     paymentStatus: {
       type: String,
-      enum: ["unpaid", "captured", "failed"],
+      enum: ["unpaid", "captured", "failed", "refunded"],
       default: "unpaid",
       index: true,
     },
     paymentVerifiedAt: { type: Date },
+    refundId: { type: String },
+    refundedAt: { type: Date },
     notificationsSentAt: { type: Date },
     userId: { type: Schema.Types.ObjectId, ref: "User" },
     notes: { type: String },

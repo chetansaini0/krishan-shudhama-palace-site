@@ -17,9 +17,37 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    // Razorpay Checkout needs checkout/cdn/api frames + scripts, and COOP must allow popups.
+    const razorpayScript =
+      "https://checkout.razorpay.com https://cdn.razorpay.com https://*.razorpay.com";
+    const razorpayFrame =
+      "https://checkout.razorpay.com https://api.razorpay.com https://*.razorpay.com";
+    const razorpayConnect =
+      "https://api.razorpay.com https://lumberjack.razorpay.com https://*.razorpay.com";
+
     const csp = isDev
-      ? "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https: http: ws: wss:; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;"
-      : "default-src 'self'; img-src 'self' https: data: blob:; media-src 'self' https: blob:; script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self' https: data:; connect-src 'self' https: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://checkout.razorpay.com https://www.google.com https://maps.google.com;";
+      ? [
+          "default-src 'self'",
+          "img-src 'self' https: data: blob:",
+          "media-src 'self' https: blob:",
+          `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${razorpayScript}`,
+          "style-src 'self' 'unsafe-inline'",
+          "font-src 'self' https: data:",
+          `connect-src 'self' https: http: ws: wss: ${razorpayConnect}`,
+          `frame-src ${razorpayFrame} https://www.google.com https://maps.google.com`,
+          "child-src blob: https://checkout.razorpay.com https://api.razorpay.com",
+        ].join("; ")
+      : [
+          "default-src 'self'",
+          "img-src 'self' https: data: blob:",
+          "media-src 'self' https: blob:",
+          `script-src 'self' 'unsafe-inline' ${razorpayScript} https://www.googletagmanager.com`,
+          "style-src 'self' 'unsafe-inline'",
+          "font-src 'self' https: data:",
+          `connect-src 'self' https: ${razorpayConnect} https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com`,
+          `frame-src ${razorpayFrame} https://www.google.com https://maps.google.com`,
+          "child-src blob: https://checkout.razorpay.com https://api.razorpay.com https://*.razorpay.com",
+        ].join("; ");
 
     return [
       {
@@ -41,11 +69,12 @@ const nextConfig: NextConfig = {
                   value: "max-age=31536000; includeSubDomains; preload",
                 },
               ]),
-          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(self)" },
+          // same-origin breaks Razorpay checkout popups/modals ("This content is blocked")
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
           {
             key: "Content-Security-Policy",
             value: csp,

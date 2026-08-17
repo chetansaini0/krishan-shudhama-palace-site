@@ -2,6 +2,11 @@ import { Resend } from "resend";
 import { format } from "date-fns";
 import { HOTEL } from "@/lib/constants";
 import { hotelOpsEmail } from "@/lib/hotel-email";
+import {
+  formatOwnerBookingWhatsAppMessage,
+  notifyOwnerWhatsAppBooking,
+} from "@/lib/owner-whatsapp";
+import { getRoomBySlug } from "@/lib/rooms";
 
 function formatInr(n: number): string {
   return new Intl.NumberFormat("en-IN", {
@@ -23,6 +28,8 @@ export function normalizeIndiaMobile(phone: string): string {
 function bookingEmailHtml(booking: {
   guestName: string;
   roomSlug: string;
+  roomName?: string;
+  guests?: number;
   checkIn: Date;
   checkOut: Date;
   nights: number;
@@ -30,6 +37,7 @@ function bookingEmailHtml(booking: {
   id: string;
 }): string {
   const stay = `${format(booking.checkIn, "dd MMM yyyy")} → ${format(booking.checkOut, "dd MMM yyyy")}`;
+  const roomLabel = booking.roomName ?? booking.roomSlug;
   return `
   <!DOCTYPE html>
   <html>
@@ -43,10 +51,15 @@ function bookingEmailHtml(booking: {
       </p>
       <table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;">
         <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Confirmation</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-family:monospace;">${booking.id.slice(-10)}</td></tr>
-        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Suite</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">${booking.roomSlug}</td></tr>
+        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Room</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">${roomLabel}</td></tr>
+        ${
+          typeof booking.guests === "number"
+            ? `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Guests</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">${booking.guests}</td></tr>`
+            : ""
+        }
         <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Stay</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">${stay}</td></tr>
         <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Nights</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">${booking.nights}</td></tr>
-        <tr><td style="padding:8px 0;"><strong>Total</strong></td><td style="padding:8px 0;text-align:right;"><strong>${formatInr(booking.totalAmount)}</strong></td></tr>
+        <tr><td style="padding:8px 0;"><strong>Total paid</strong></td><td style="padding:8px 0;text-align:right;"><strong>${formatInr(booking.totalAmount)}</strong></td></tr>
       </table>
       <p style="font-size:13px;color:#444;line-height:1.6;margin:16px 0 0;">
         Need changes? Reply to this email or WhatsApp us at <strong>${HOTEL.phone}</strong>.
@@ -117,7 +130,8 @@ async function sendMsg91BookingSms(booking: {
 export type NotifyResult = {
   emailSent: boolean;
   smsSent: boolean;
-  skipped: { email?: string; sms?: string };
+  ownerWhatsAppSent: boolean;
+  skipped: { email?: string; sms?: string; ownerWhatsApp?: string };
   errors: string[];
 };
 
@@ -127,6 +141,7 @@ export async function notifyBookingConfirmed(booking: {
   email: string;
   phone: string;
   roomSlug: string;
+  guests: number;
   checkIn: Date;
   checkOut: Date;
   nights: number;
@@ -136,10 +151,14 @@ export async function notifyBookingConfirmed(booking: {
   const skipped: NotifyResult["skipped"] = {};
   let emailSent = false;
   let smsSent = false;
+  let ownerWhatsAppSent = false;
 
+  const room = await getRoomBySlug(booking.roomSlug);
   const payload = {
     guestName: booking.guestName,
     roomSlug: booking.roomSlug,
+    roomName: room?.name,
+    guests: booking.guests,
     checkIn: booking.checkIn,
     checkOut: booking.checkOut,
     nights: booking.nights,
@@ -162,15 +181,27 @@ export async function notifyBookingConfirmed(booking: {
       });
       emailSent = true;
 
-      void sendStaffEmail(
-        `New paid booking — ${booking.guestName}`,
-        `<p><strong>Guest:</strong> ${booking.guestName}</p>
-         <p><strong>Email:</strong> ${booking.email}</p>
-         <p><strong>Phone:</strong> ${booking.phone}</p>
-         <p><strong>Room:</strong> ${booking.roomSlug}</p>
-         <p><strong>Stay:</strong> ${format(booking.checkIn, "dd MMM yyyy")} → ${format(booking.checkOut, "dd MMM yyyy")}</p>
-         <p><strong>Total:</strong> ${formatInr(booking.totalAmount)}</p>`,
-      ).catch((e) => console.error("[notifyStaffBooking]", e));
+      const ownerText = await formatOwnerBookingWhatsAppMessage({
+        _id: booking._id,
+        guestName: booking.guestName,
+        email: booking.email,
+        phone: booking.phone,
+        roomSlug: booking.roomSlug,
+        guests: booking.guests,
+        checkIn: booking.checkIn,
+        checkOut: booking.checkOut,
+        nights: booking.nights,
+        totalAmount: booking.totalAmount,
+      });
+
+      await sendStaffEmail(
+        `New paid booking — ${booking.guestName} · ${room?.name ?? booking.roomSlug}`,
+        `<p>A guest completed Razorpay payment. Details:</p>
+         <pre style="white-space:pre-wrap;font-family:ui-monospace,monospace;font-size:13px;background:#faf7f2;padding:16px;border:1px solid #e8d5a3;">${ownerText
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/\*/g, "")}</pre>`,
+      );
     } catch (e) {
       errors.push(`Resend: ${e instanceof Error ? e.message : String(e)}`);
     }
@@ -199,13 +230,40 @@ export async function notifyBookingConfirmed(booking: {
     skipped.sms = "MSG91_AUTH_KEY or MSG91_FLOW_TEMPLATE_ID missing";
   }
 
+  try {
+    const wa = await notifyOwnerWhatsAppBooking({
+      _id: booking._id,
+      guestName: booking.guestName,
+      email: booking.email,
+      phone: booking.phone,
+      roomSlug: booking.roomSlug,
+      guests: booking.guests,
+      checkIn: booking.checkIn,
+      checkOut: booking.checkOut,
+      nights: booking.nights,
+      totalAmount: booking.totalAmount,
+    });
+    ownerWhatsAppSent = wa.sent;
+    if (wa.skipped) skipped.ownerWhatsApp = wa.skipped;
+    if (wa.error) errors.push(`Owner WhatsApp: ${wa.error}`);
+  } catch (e) {
+    errors.push(
+      `Owner WhatsApp: ${e instanceof Error ? e.message : String(e)}`,
+    );
+  }
+
   if (errors.length) {
     console.error("[notifyBookingConfirmed]", { skipped, errors });
   } else {
-    console.info("[notifyBookingConfirmed]", { emailSent, smsSent, skipped });
+    console.info("[notifyBookingConfirmed]", {
+      emailSent,
+      smsSent,
+      ownerWhatsAppSent,
+      skipped,
+    });
   }
 
-  return { emailSent, smsSent, skipped, errors };
+  return { emailSent, smsSent, ownerWhatsAppSent, skipped, errors };
 }
 
 async function sendStaffEmail(subject: string, html: string): Promise<void> {
