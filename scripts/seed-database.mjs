@@ -34,7 +34,8 @@ const rooms = [
     weekendMultiplier: 1.15,
     maxGuests: 2,
     sizeSqFt: 340,
-    inventory: 4,
+    inventory: 6,
+    roomNumbers: ["101", "102", "103", "104", "105", "106"],
     active: true,
   },
   {
@@ -59,7 +60,8 @@ const rooms = [
     weekendMultiplier: 1.2,
     maxGuests: 4,
     sizeSqFt: 720,
-    inventory: 4,
+    inventory: 2,
+    roomNumbers: ["107", "108"],
     active: true,
   },
   {
@@ -104,6 +106,7 @@ const RoomSchema = new mongoose.Schema(
     maxGuests: Number,
     sizeSqFt: Number,
     inventory: { type: Number, default: 1 },
+    roomNumbers: [String],
     active: { type: Boolean, default: true },
     comingSoon: { type: Boolean, default: false },
   },

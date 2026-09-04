@@ -130,6 +130,16 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-4 text-sm text-ivory/55">
               <a
+                href={
+                  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+                  "https://www.krishanshudhamapalace.com"
+                }
+                className="flex items-center gap-3 transition hover:text-gold"
+              >
+                <MapPin className="h-4 w-4 text-gold/60" />
+                www.krishanshudhamapalace.com
+              </a>
+              <a
                 href={HOTEL.phoneTel}
                 className="flex items-center gap-3 transition hover:text-gold"
               >

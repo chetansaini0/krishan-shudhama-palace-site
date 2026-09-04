@@ -3,6 +3,8 @@ import { connectDB } from "@/lib/db";
 import { BookingModel, type BookingDocument } from "@/models/Booking";
 import { notifyBookingConfirmed } from "@/lib/notifications";
 import { rupeesToPaise } from "@/lib/pricing";
+import { assignRoomNumber } from "@/lib/availability";
+import { getRoomBySlug } from "@/lib/rooms";
 
 export function verifyRazorpayCheckoutSignature(input: {
   orderId: string;
@@ -89,6 +91,17 @@ export async function finalizePaidBooking(input: {
   booking.paymentStatus = "captured";
   booking.paymentVerifiedAt = new Date();
   booking.pendingExpiresAt = undefined;
+  if (!booking.assignedRoomNumber) {
+    const room = await getRoomBySlug(booking.roomSlug);
+    const assigned = await assignRoomNumber({
+      roomSlug: booking.roomSlug,
+      roomNumbers: room?.roomNumbers ?? [],
+      checkIn: booking.checkIn,
+      checkOut: booking.checkOut,
+      excludeBookingId: String(booking._id),
+    });
+    if (assigned) booking.assignedRoomNumber = assigned;
+  }
   await booking.save();
 
   if (!booking.notificationsSentAt) {
@@ -153,6 +166,7 @@ export async function refundPaidBooking(input: {
     booking.refundId = String(refund.id);
     booking.refundedAt = new Date();
     booking.pendingExpiresAt = undefined;
+    booking.assignedRoomNumber = undefined;
     await booking.save();
 
     return {

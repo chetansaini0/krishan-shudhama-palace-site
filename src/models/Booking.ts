@@ -5,6 +5,7 @@ export type BookingStatus = "pending" | "confirmed" | "cancelled" | "failed";
 export type BookingDocument = {
   _id: Types.ObjectId;
   roomSlug: string;
+  assignedRoomNumber?: string;
   guestName: string;
   email: string;
   phone: string;
@@ -31,6 +32,7 @@ export type BookingDocument = {
 const BookingSchema = new Schema<BookingDocument>(
   {
     roomSlug: { type: String, required: true, index: true },
+    assignedRoomNumber: { type: String, index: true },
     guestName: { type: String, required: true },
     email: { type: String, required: true, index: true },
     phone: { type: String, required: true },

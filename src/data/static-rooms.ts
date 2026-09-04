@@ -13,6 +13,8 @@ export type RoomPublic = {
   maxGuests: number;
   sizeSqFt?: number;
   inventory: number;
+  /** Physical hotel room numbers for this category. */
+  roomNumbers?: string[];
   comingSoon?: boolean;
 };
 
@@ -43,7 +45,8 @@ export const STATIC_ROOMS: RoomPublic[] = [
     weekendMultiplier: 1.15,
     maxGuests: 2,
     sizeSqFt: 340,
-    inventory: 4,
+    inventory: 6,
+    roomNumbers: ["101", "102", "103", "104", "105", "106"],
   },
   {
     slug: "royal-suite",
@@ -67,7 +70,8 @@ export const STATIC_ROOMS: RoomPublic[] = [
     weekendMultiplier: 1.2,
     maxGuests: 4,
     sizeSqFt: 720,
-    inventory: 4,
+    inventory: 2,
+    roomNumbers: ["107", "108"],
   },
   {
     slug: "executive-club",
@@ -92,6 +96,7 @@ export const STATIC_ROOMS: RoomPublic[] = [
     maxGuests: 3,
     sizeSqFt: 420,
     inventory: 0,
+    roomNumbers: [],
     comingSoon: true,
   },
 ];

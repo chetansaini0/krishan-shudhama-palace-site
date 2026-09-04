@@ -29,6 +29,7 @@ function bookingEmailHtml(booking: {
   guestName: string;
   roomSlug: string;
   roomName?: string;
+  assignedRoomNumber?: string;
   guests?: number;
   checkIn: Date;
   checkOut: Date;
@@ -37,7 +38,9 @@ function bookingEmailHtml(booking: {
   id: string;
 }): string {
   const stay = `${format(booking.checkIn, "dd MMM yyyy")} → ${format(booking.checkOut, "dd MMM yyyy")}`;
-  const roomLabel = booking.roomName ?? booking.roomSlug;
+  const roomLabel = booking.assignedRoomNumber
+    ? `${booking.roomName ?? booking.roomSlug} · Room ${booking.assignedRoomNumber}`
+    : (booking.roomName ?? booking.roomSlug);
   return `
   <!DOCTYPE html>
   <html>
@@ -141,6 +144,7 @@ export async function notifyBookingConfirmed(booking: {
   email: string;
   phone: string;
   roomSlug: string;
+  assignedRoomNumber?: string;
   guests: number;
   checkIn: Date;
   checkOut: Date;
@@ -158,6 +162,7 @@ export async function notifyBookingConfirmed(booking: {
     guestName: booking.guestName,
     roomSlug: booking.roomSlug,
     roomName: room?.name,
+    assignedRoomNumber: booking.assignedRoomNumber,
     guests: booking.guests,
     checkIn: booking.checkIn,
     checkOut: booking.checkOut,
@@ -187,6 +192,7 @@ export async function notifyBookingConfirmed(booking: {
         email: booking.email,
         phone: booking.phone,
         roomSlug: booking.roomSlug,
+        assignedRoomNumber: booking.assignedRoomNumber,
         guests: booking.guests,
         checkIn: booking.checkIn,
         checkOut: booking.checkOut,
@@ -237,6 +243,7 @@ export async function notifyBookingConfirmed(booking: {
       email: booking.email,
       phone: booking.phone,
       roomSlug: booking.roomSlug,
+      assignedRoomNumber: booking.assignedRoomNumber,
       guests: booking.guests,
       checkIn: booking.checkIn,
       checkOut: booking.checkOut,

@@ -34,9 +34,9 @@ const MapPreview = dynamic(
 );
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Best Hotel in Khatoo Near Khatu Shyam Temple",
+  title: "Krishan Shudhama Palace | Best Hotel in Khatoo Near Khatu Shyam Temple",
   description:
-    "Krishan Shudhama Palace — the best hotel in Khatoo near Khatu Shyam Ji. Luxury rooms, pure veg dining, banquet hall & secure direct booking. Walk to the temple.",
+    "Official website of Krishan Shudhama Palace (krishanshudhamapalace.com) — the best hotel in Khatoo near Khatu Shyam Ji. Luxury rooms, pure veg dining, banquet hall & secure direct booking.",
   path: "/",
 });
 

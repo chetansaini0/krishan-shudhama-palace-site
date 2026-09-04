@@ -23,6 +23,9 @@ export const SEO_KEYWORDS = [
   "wedding venue Khatu Shyam",
   HOTEL.name,
   "Krishan Shudhama Palace Khatu",
+  "krishanshudhamapalace",
+  "krishanshudhamapalace.com",
+  "www.krishanshudhamapalace.com",
   "direct hotel booking Khatu",
 ] as const;
 

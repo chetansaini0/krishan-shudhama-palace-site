@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 type Row = {
   id: string;
   roomSlug: string;
+  assignedRoomNumber?: string;
   guestName: string;
   email: string;
   phone: string;
@@ -116,7 +117,14 @@ export default function AdminBookingsPage() {
                       <div className="text-xs text-black-soft/60">{r.email}</div>
                       <div className="text-xs text-black-soft/60">{r.phone}</div>
                     </td>
-                    <td className="px-4 py-3">{r.roomSlug}</td>
+                    <td className="px-4 py-3">
+                      {r.roomSlug}
+                      {r.assignedRoomNumber ? (
+                        <div className="text-xs text-black-soft/60">
+                          Room {r.assignedRoomNumber}
+                        </div>
+                      ) : null}
+                    </td>
                     <td className="px-4 py-3 text-xs">
                       {new Date(r.checkIn).toLocaleDateString()} →{" "}
                       {new Date(r.checkOut).toLocaleDateString()}

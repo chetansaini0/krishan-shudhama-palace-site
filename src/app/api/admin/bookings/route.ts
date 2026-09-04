@@ -22,6 +22,7 @@ export async function GET() {
       return {
         id: String(b._id),
         roomSlug: b.roomSlug,
+        assignedRoomNumber: b.assignedRoomNumber,
         guestName: b.guestName,
         email: b.email,
         phone: b.phone,

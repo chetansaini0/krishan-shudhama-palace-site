@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { HOTEL } from "@/lib/constants";
-import { getUnitsAvailable } from "@/lib/availability";
+import { listRoomNumberStatus } from "@/lib/availability";
 import { getRooms } from "@/lib/rooms";
 
 function normalizeIndiaMobile(phone: string): string {
@@ -17,6 +17,7 @@ export type OwnerBookingAlert = {
   email: string;
   phone: string;
   roomSlug: string;
+  assignedRoomNumber?: string;
   guests: number;
   checkIn: Date;
   checkOut: Date;
@@ -37,9 +38,8 @@ export async function buildRoomAvailabilityChecklist(
   checkIn: Date,
   checkOut: Date,
   bookedRoomSlug: string,
+  assignedRoomNumber?: string,
 ): Promise<string[]> {
-  const checkInISO = checkIn.toISOString();
-  const checkOutISO = checkOut.toISOString();
   const rooms = await getRooms();
   const lines: string[] = [];
 
@@ -49,29 +49,29 @@ export async function buildRoomAvailabilityChecklist(
       continue;
     }
 
-    const free = await getUnitsAvailable(
-      room.slug,
-      checkInISO,
-      checkOutISO,
-      room.inventory,
-    );
-    const taken = Math.max(0, room.inventory - free);
-    const isThisBooking = room.slug === bookedRoomSlug;
+    const numbers = room.roomNumbers ?? [];
+    if (numbers.length === 0) {
+      lines.push(`⬜ ${room.name} — ${room.inventory} units`);
+      continue;
+    }
 
-    if (free <= 0) {
-      lines.push(
-        `✅ ${room.name} — FULLY BOOKED (${taken}/${room.inventory})`,
-      );
-    } else if (isThisBooking || taken > 0) {
-      lines.push(
-        `✅ ${room.name} — BOOKED ${taken}/${room.inventory} · ${free} free${
-          isThisBooking ? " · this booking" : ""
-        }`,
-      );
-    } else {
-      lines.push(
-        `⬜ ${room.name} — AVAILABLE (${room.inventory}/${room.inventory} free)`,
-      );
+    lines.push(`*${room.name}*`);
+    const status = await listRoomNumberStatus(
+      room.slug,
+      numbers,
+      checkIn,
+      checkOut,
+    );
+    for (const item of status) {
+      const thisStay =
+        room.slug === bookedRoomSlug && item.number === assignedRoomNumber;
+      if (item.booked) {
+        lines.push(
+          `✅ ${item.number} — BOOKED${thisStay ? " (this booking)" : ""}`,
+        );
+      } else {
+        lines.push(`⬜ ${item.number} — AVAILABLE`);
+      }
     }
   }
 
@@ -90,8 +90,12 @@ export async function formatOwnerBookingWhatsAppMessage(
     booking.checkIn,
     booking.checkOut,
     booking.roomSlug,
+    booking.assignedRoomNumber,
   );
   const ref = booking._id.toString().slice(-10);
+  const roomLine = booking.assignedRoomNumber
+    ? `${roomName} · Room ${booking.assignedRoomNumber}`
+    : roomName;
 
   return [
     `*New paid booking — ${HOTEL.shortName}*`,
@@ -99,7 +103,7 @@ export async function formatOwnerBookingWhatsAppMessage(
     `*Guest:* ${booking.guestName}`,
     `*Phone:* ${booking.phone}`,
     `*Email:* ${booking.email}`,
-    `*Room:* ${roomName}`,
+    `*Room:* ${roomLine}`,
     `*Guests:* ${booking.guests}`,
     `*Check-in:* ${stayStart}`,
     `*Check-out:* ${stayEnd}`,

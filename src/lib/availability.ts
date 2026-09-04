@@ -75,3 +75,70 @@ export async function getUnitsAvailable(
   );
   return Math.max(0, inventory - booked);
 }
+
+export async function listOverlappingBookings(
+  roomSlug: string,
+  checkInISO: string,
+  checkOutISO: string,
+  excludeBookingId?: string,
+): Promise<{ assignedRoomNumber?: string }[]> {
+  if (!isDbConfigured()) return [];
+  await connectDB();
+  return BookingModel.find(overlapFilter(roomSlug, checkInISO, checkOutISO, excludeBookingId))
+    .select("assignedRoomNumber")
+    .lean();
+}
+
+/** First free physical room number for this category and stay. */
+export async function assignRoomNumber(input: {
+  roomSlug: string;
+  roomNumbers: string[];
+  checkIn: Date;
+  checkOut: Date;
+  excludeBookingId?: string;
+}): Promise<string | undefined> {
+  const numbers = input.roomNumbers.filter(Boolean);
+  if (numbers.length === 0) return undefined;
+
+  const overlapping = await listOverlappingBookings(
+    input.roomSlug,
+    input.checkIn.toISOString(),
+    input.checkOut.toISOString(),
+    input.excludeBookingId,
+  );
+  const taken = new Set(
+    overlapping
+      .map((b) => b.assignedRoomNumber)
+      .filter((n): n is string => Boolean(n)),
+  );
+  const anonymous = overlapping.filter((b) => !b.assignedRoomNumber).length;
+  const free = numbers.filter((n) => !taken.has(n));
+  return free[anonymous];
+}
+
+export async function listRoomNumberStatus(
+  roomSlug: string,
+  roomNumbers: string[],
+  checkIn: Date,
+  checkOut: Date,
+): Promise<{ number: string; booked: boolean }[]> {
+  const overlapping = await listOverlappingBookings(
+    roomSlug,
+    checkIn.toISOString(),
+    checkOut.toISOString(),
+  );
+  const taken = new Set(
+    overlapping
+      .map((b) => b.assignedRoomNumber)
+      .filter((n): n is string => Boolean(n)),
+  );
+  let anonymousLeft = overlapping.filter((b) => !b.assignedRoomNumber).length;
+  return roomNumbers.map((number) => {
+    if (taken.has(number)) return { number, booked: true };
+    if (anonymousLeft > 0) {
+      anonymousLeft -= 1;
+      return { number, booked: true };
+    }
+    return { number, booked: false };
+  });
+}

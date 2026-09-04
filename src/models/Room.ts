@@ -15,6 +15,7 @@ export type RoomDocument = {
   maxGuests: number;
   sizeSqFt?: number;
   inventory: number;
+  roomNumbers?: string[];
   active: boolean;
   comingSoon?: boolean;
 };
@@ -37,6 +38,7 @@ const RoomSchema = new Schema<RoomDocument>(
     maxGuests: { type: Number, required: true },
     sizeSqFt: { type: Number },
     inventory: { type: Number, default: 1, min: 0 },
+    roomNumbers: { type: [String], default: [] },
     active: { type: Boolean, default: true },
     comingSoon: { type: Boolean, default: false },
   },
@@ -60,6 +62,7 @@ export function roomDocToPublic(doc: RoomDocument): RoomPublic {
     maxGuests: doc.maxGuests,
     sizeSqFt: doc.sizeSqFt,
     inventory: doc.inventory ?? 1,
+    roomNumbers: doc.roomNumbers ?? [],
     comingSoon: doc.comingSoon ?? false,
   };
 }
