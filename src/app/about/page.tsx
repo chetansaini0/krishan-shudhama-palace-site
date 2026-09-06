@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
-import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
+import { Reveal } from "@/components/effects/Reveal";
 import { RollingNumber } from "@/components/effects/RollingNumber";
 import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
 import { HOTEL } from "@/lib/constants";
@@ -87,10 +87,10 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-24 lg:py-32">
+      <section className="py-[var(--space-section)]">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <RevealOnScroll direction="left">
+            <Reveal>
               <SectionTitle
                 align="left"
                 eyebrow="Who We Are"
@@ -100,19 +100,19 @@ export default function AboutPage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/book"
-                  className="btn-shimmer rounded-full bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
+                  className="btn-shimmer rounded-md bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
                 >
                   Reserve Your Stay
                 </Link>
                 <Link
                   href="/rooms"
-                  className="rounded-full border border-navy/15 px-8 py-3 text-sm font-medium text-navy transition hover:border-gold hover:text-gold"
+                  className="rounded-md border border-navy/15 px-8 py-3 text-sm font-medium text-navy transition hover:border-gold hover:text-gold"
                 >
                   Explore Rooms
                 </Link>
               </div>
-            </RevealOnScroll>
-            <RevealOnScroll direction="right">
+            </Reveal>
+            <Reveal>
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
                 <Image
                   src={SPIRITUAL_IMAGES.luxuryInterior}
@@ -122,12 +122,12 @@ export default function AboutPage() {
                   className="object-cover"
                 />
               </div>
-            </RevealOnScroll>
+            </Reveal>
           </div>
         </Container>
       </section>
 
-      <section className="bg-navy py-24 lg:py-32">
+      <section className="bg-navy py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="Our Values"
@@ -137,7 +137,7 @@ export default function AboutPage() {
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
-              <RevealOnScroll key={v.title} delay={i * 0.06}>
+              <Reveal key={v.title} delay={i * 0.06}>
                 <div className="group h-full rounded-xl border border-white/5 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-gold/20 hover:bg-white/[0.06]">
                   <div className="mb-4 inline-flex rounded-xl bg-gold/10 p-3 text-gold transition-colors group-hover:bg-gold/20">
                     <v.icon className="h-6 w-6" />
@@ -145,13 +145,13 @@ export default function AboutPage() {
                   <h3 className="font-serif text-lg text-ivory">{v.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ivory/45">{v.desc}</p>
                 </div>
-              </RevealOnScroll>
+              </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="py-24 lg:py-32">
+      <section className="py-[var(--space-section)]">
         <Container>
           <div className="grid gap-4 rounded-2xl border border-gold/10 bg-white p-6 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((s) => (
@@ -168,12 +168,12 @@ export default function AboutPage() {
 
           <div className="mt-16 grid gap-6 lg:grid-cols-3">
             {milestones.map((m, i) => (
-              <RevealOnScroll key={m.year} delay={i * 0.08}>
+              <Reveal key={m.year} delay={i * 0.08}>
                 <div className="h-full rounded-2xl border border-gold/10 bg-cream/40 p-8">
                   <p className="font-serif text-2xl text-gold">{m.year}</p>
                   <p className="mt-3 text-sm leading-relaxed text-charcoal/60">{m.label}</p>
                 </div>
-              </RevealOnScroll>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -191,13 +191,13 @@ export default function AboutPage() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/book"
-                className="btn-shimmer rounded-full bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
+                className="btn-shimmer rounded-md bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
               >
                 Book Now
               </Link>
               <Link
                 href="/contact"
-                className="rounded-full border border-ivory/20 px-8 py-3.5 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
+                className="rounded-md border border-ivory/20 px-8 py-3.5 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
               >
                 Talk to Concierge
               </Link>

@@ -1,4 +1,4 @@
-import { SPIRITUAL_IMAGES, SPIRITUAL_VIDEOS } from "./spiritual-media";
+import { SPIRITUAL_IMAGES } from "./spiritual-media";
 
 /** Client-safe branding via NEXT_PUBLIC_* — rebuild after changing env for client bundles. */
 function pe(key: string, fallback: string): string {
@@ -68,8 +68,9 @@ export const HOTEL = {
     "NEXT_PUBLIC_REVIEWS_URL",
     "https://www.google.com/maps/place/?q=place_id:ChIJf3y_gV7tbDkR_sHEBjQk-QI",
   ),
-  heroVideoPoster: pe("NEXT_PUBLIC_HERO_POSTER_URL", SPIRITUAL_IMAGES.lampsWarmth),
-  heroVideoSrc: pe("NEXT_PUBLIC_HERO_VIDEO_URL", SPIRITUAL_VIDEOS.cinematicParticles),
+  heroVideoPoster: pe("NEXT_PUBLIC_HERO_POSTER_URL", SPIRITUAL_IMAGES.luxuryInterior),
+  /** Empty by default — set NEXT_PUBLIC_HERO_VIDEO_URL only when self-hosted property video is ready. */
+  heroVideoSrc: pe("NEXT_PUBLIC_HERO_VIDEO_URL", ""),
   googlePlaceId: pe("NEXT_PUBLIC_GOOGLE_PLACE_ID", "ChIJf3y_gV7tbDkR_sHEBjQk-QI"),
 };
 

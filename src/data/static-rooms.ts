@@ -32,7 +32,7 @@ export const STATIC_ROOMS: RoomPublic[] = [
       "Wake up to soft daylight over curated interiors. Deluxe King rooms blend handcrafted accents with whisper-quiet climate control for restorative stays.",
     images: [
       "/images/rooms/deluxe-king-main.png",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1974&auto=format&fit=crop",
+      "/images/gallery/gallery-room-bed-close.png",
     ],
     amenities: [
       "King bed with premium linens",
@@ -82,7 +82,7 @@ export const STATIC_ROOMS: RoomPublic[] = [
       "Designed for leaders on the move: ergonomic workspace, expedited service, and exclusive club lounge access for seamless business + leisure.",
     images: [
       "/images/rooms/executive-club-main.png",
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1974&auto=format&fit=crop",
+      "/images/story/discover-room-2.png",
     ],
     amenities: [
       "Executive lounge access",

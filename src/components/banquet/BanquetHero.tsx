@@ -30,14 +30,14 @@ export function BanquetHero({
           <div className="mt-6 flex flex-wrap gap-4">
             <a
               href="#inquire"
-              className="btn-shimmer rounded-full bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-wider text-navy transition hover:bg-gold-light"
+              className="btn-shimmer rounded-md bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-wider text-navy transition hover:bg-gold-light"
             >
               Inquire Now
             </a>
             <Link
               href={`https://wa.me/${HOTEL.whatsapp}`}
               target="_blank"
-              className="rounded-full border border-ivory/20 px-8 py-3 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
+              className="rounded-md border border-ivory/20 px-8 py-3 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
             >
               WhatsApp
             </Link>

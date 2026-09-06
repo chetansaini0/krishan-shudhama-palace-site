@@ -79,7 +79,7 @@ export default function DiningPage() {
         </Container>
       </section>
 
-      <section className="py-24 lg:py-32">
+      <section className="py-[var(--space-section)]">
         <Container>
           <div className="mb-14 grid gap-4 rounded-2xl border border-gold/10 bg-white p-6 sm:grid-cols-2 lg:grid-cols-4">
             <div className="text-center">
@@ -135,7 +135,7 @@ export default function DiningPage() {
               </div>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex rounded-full bg-gold px-8 py-3 text-sm font-semibold text-navy transition hover:bg-gold-light"
+                className="mt-8 inline-flex rounded-md bg-gold px-8 py-3 text-sm font-semibold text-navy transition hover:bg-gold-light"
               >
                 Reserve a Table
               </Link>
@@ -153,7 +153,7 @@ export default function DiningPage() {
         </Container>
       </section>
 
-      <section className="bg-navy py-24 lg:py-32">
+      <section className="bg-navy py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="Menu Highlights"
@@ -182,7 +182,7 @@ export default function DiningPage() {
         </Container>
       </section>
 
-      <section id="food-menu" className="py-24 lg:py-32">
+      <section id="food-menu" className="py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="Food Menu"
@@ -208,7 +208,7 @@ export default function DiningPage() {
                             className="object-cover transition duration-700 group-hover:scale-105"
                             sizes="(max-width:768px) 100vw, 50vw"
                           />
-                          <div className="absolute left-3 top-3 rounded-full bg-navy/85 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-gold">
+                          <div className="absolute left-3 top-3 rounded-md bg-navy/85 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-gold">
                             Menu Image {menu.index}
                           </div>
                         </div>
@@ -227,7 +227,7 @@ export default function DiningPage() {
         </Container>
       </section>
 
-      <section className="py-24 lg:py-32">
+      <section className="py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="Venues"
@@ -259,13 +259,13 @@ export default function DiningPage() {
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
                 href={HOTEL.phoneTel}
-                className="rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-light"
+                className="rounded-md bg-gold px-6 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-light"
               >
                 Call Now
               </a>
               <Link
                 href="/contact"
-                className="rounded-full border border-ivory/20 px-6 py-2.5 text-sm text-ivory transition hover:border-gold/50 hover:text-gold"
+                className="rounded-md border border-ivory/20 px-6 py-2.5 text-sm text-ivory transition hover:border-gold/50 hover:text-gold"
               >
                 Contact Restaurant
               </Link>

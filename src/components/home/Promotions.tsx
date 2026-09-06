@@ -29,7 +29,7 @@ export function Promotions() {
   if (!offers.length) return null;
 
   return (
-    <section className="bg-ivory py-24 lg:py-32">
+    <section className="bg-ivory py-[var(--space-section)]">
       <Container>
         <SectionTitle
           eyebrow="Special Offers"
@@ -47,7 +47,7 @@ export function Promotions() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="group relative overflow-hidden rounded-2xl bg-navy p-8 text-ivory shadow-xl transition-transform hover:-translate-y-1 lg:p-10"
             >
-              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gold/5" aria-hidden />
+              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-md bg-gold/5" aria-hidden />
               <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gold via-gold-light to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
               <div className="flex items-start gap-4">
@@ -56,7 +56,7 @@ export function Promotions() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <span className="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
+                    <span className="rounded-md bg-gold/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
                       Save {o.discountPercent}%
                     </span>
                     <span className="text-xs text-ivory/40">

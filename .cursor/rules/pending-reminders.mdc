@@ -1,0 +1,16 @@
+---
+description: Pending Krishan Shudhama Palace follow-ups to remind the user next session
+alwaysApply: true
+---
+
+# Krishan Shudhama — pending reminders
+
+At the start of any session on this hotel site, briefly remind Chetan about unfinished items (do not block other work):
+
+1. **Owner WhatsApp auto-alerts** — Booking WhatsApp message code is deployed (includes physical room numbers 101–108). Still needs `CALLMEBOT_APIKEY` so messages reach `8003402154`.
+
+Physical room numbers are done:
+- Deluxe King: 101–106 (6 rooms)
+- Royal Suite: 107–108 (2 rooms)
+
+Ask once per session unless they say to skip or complete an item.

@@ -5,13 +5,11 @@ import { useReducedMotion } from "framer-motion";
 import { useCallback, useState, type MouseEvent, type ReactNode } from "react";
 
 const base =
-  "btn-shimmer relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-6 py-3 text-sm font-medium transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:scale-[0.98]";
+  "btn-shimmer relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-md px-6 py-3 text-sm font-medium transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:scale-[0.98]";
 
 const variants: Record<string, string> = {
-  primary:
-    "bg-navy text-ivory shadow-md hover:bg-navy-light hover:shadow-lg",
-  gold:
-    "bg-gold text-navy shadow-md shadow-gold/20 hover:bg-gold-light hover:shadow-lg",
+  primary: "bg-navy text-ivory shadow-md hover:bg-navy-light hover:shadow-lg",
+  gold: "bg-gold text-navy shadow-md shadow-gold/15 hover:bg-gold-light hover:shadow-lg",
   outline:
     "border border-navy/15 bg-transparent text-navy hover:border-gold hover:text-gold hover:shadow-md",
   ghost: "text-navy hover:bg-navy/5",
@@ -73,11 +71,7 @@ export function Button({
 
   if (href) {
     return (
-      <Link
-        href={href}
-        className={cls}
-        onClick={(e) => addRipple(e)}
-      >
+      <Link href={href} className={cls} onClick={(e) => addRipple(e)}>
         {content}
       </Link>
     );

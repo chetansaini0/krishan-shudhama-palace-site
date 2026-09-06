@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
+import { Reveal } from "@/components/effects/Reveal";
 import { RollingNumber } from "@/components/effects/RollingNumber";
 import { Clock, UtensilsCrossed, Leaf } from "lucide-react";
 
@@ -27,10 +27,10 @@ export function DiningPreview() {
   const diningSectionImage = "/images/dining/dining-section-main.png";
 
   return (
-    <section className="relative overflow-hidden bg-ivory py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-ivory py-[var(--space-section)]">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <RevealOnScroll direction="left">
+          <Reveal>
             <div className="relative">
               <motion.div
                 whileHover={reduce ? undefined : { scale: 1.02 }}
@@ -51,9 +51,9 @@ export function DiningPreview() {
                 <UtensilsCrossed className="h-8 w-8 text-navy" />
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
 
-          <RevealOnScroll direction="right" delay={0.15}>
+          <Reveal delay={0.15}>
             <div>
               <div className="mb-4 flex items-center gap-3">
                 <div className="h-px w-10 bg-gold" />
@@ -119,13 +119,13 @@ export function DiningPreview() {
 
               <Link
                 href="/dining"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-navy px-8 py-3 text-sm font-medium text-ivory transition hover:bg-navy-light"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-navy px-8 py-3 text-sm font-medium text-ivory transition hover:bg-navy-light"
               >
                 View Full Menu
                 <span aria-hidden>&rarr;</span>
               </Link>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </div>
       </Container>
     </section>

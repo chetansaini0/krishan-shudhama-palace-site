@@ -32,7 +32,7 @@ export default function TestimonialsPage() {
         <div className="mx-auto max-w-2xl text-center">
           <Link
             href="/book"
-            className="inline-flex rounded-full bg-gold px-8 py-3 text-sm font-semibold text-navy transition hover:bg-gold-light"
+            className="inline-flex rounded-md bg-gold px-8 py-3 text-sm font-semibold text-navy transition hover:bg-gold-light"
           >
             Book Your Stay
           </Link>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HOTEL } from "@/lib/constants";
 
-export const DEFAULT_OG_IMAGE = "/images/our-story-room.png";
+export const DEFAULT_OG_IMAGE = "/images/og-default.png";
 
 /** Primary + secondary local search keywords (Khatu / Khatoo variants). */
 export const SEO_KEYWORDS = [

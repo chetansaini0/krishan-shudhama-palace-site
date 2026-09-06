@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "What types of rooms are available in Khatoo?",
-    a: "We offer 4 Deluxe King rooms (₹1,500/night) for couples and 4 Royal Suites (₹2,500/night) for families — both with AC, Wi-Fi, and Rajasthani-inspired interiors near Khatu Shyam Temple.",
+    a: "We offer 6 Deluxe King rooms (₹1,500/night, rooms 101–106) for couples and 2 Royal Suites (₹2,500/night, rooms 107–108) for families — both with AC, Wi-Fi, and Rajasthani-inspired interiors near Khatu Shyam Temple.",
   },
   {
     q: "What are the check-in and check-out times?",
@@ -124,13 +124,13 @@ export default function FaqPage() {
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
               href={HOTEL.phoneTel}
-              className="rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-light"
+              className="rounded-md bg-gold px-6 py-2.5 text-sm font-semibold text-navy transition hover:bg-gold-light"
             >
               Call {HOTEL.phone}
             </a>
             <Link
               href="/contact"
-              className="rounded-full border border-ivory/20 px-6 py-2.5 text-sm text-ivory transition hover:border-gold/50 hover:text-gold"
+              className="rounded-md border border-ivory/20 px-6 py-2.5 text-sm text-ivory transition hover:border-gold/50 hover:text-gold"
             >
               Contact Us
             </Link>

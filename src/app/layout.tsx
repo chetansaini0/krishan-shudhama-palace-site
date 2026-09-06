@@ -87,13 +87,13 @@ export const metadata: Metadata = locked
         locale: "en_IN",
         siteName: HOTEL.name,
         url: "/",
-        images: [{ url: "/images/our-story-room.png", width: 1200, height: 630, alt: HOTEL.name }],
+        images: [{ url: "/images/og-default.png", width: 1200, height: 630, alt: HOTEL.name }],
       },
       twitter: {
         card: "summary_large_image",
         title: HOTEL.name,
         description: HOTEL.description,
-        images: ["/images/our-story-room.png"],
+        images: ["/images/og-default.png"],
       },
       verification: {
         google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,

@@ -155,7 +155,7 @@ export function Header() {
               transition={{ duration: 0.2 }}
               id={menuId}
               role="menu"
-              className="absolute left-0 top-full z-30 mt-2 w-52 rounded-xl border border-gold/10 bg-navy/95 p-2 backdrop-blur-xl"
+              className="absolute left-0 top-full z-30 mt-2 w-52 rounded-md border border-gold/10 bg-navy/95 p-2 backdrop-blur-xl"
             >
               {item.links.map((link) => (
                 <Link
@@ -238,7 +238,7 @@ export function Header() {
           </a>
           <Link
             href="/book"
-            className="btn-shimmer rounded-full bg-gold px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.2em] text-navy transition-all hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20"
+            className="btn-shimmer rounded-md bg-gold px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-navy transition-all hover:bg-gold-light hover:shadow-lg hover:shadow-gold/15"
           >
             Book Now
           </Link>
@@ -321,7 +321,7 @@ export function Header() {
                   <Link
                     href="/book"
                     onClick={() => setOpen(false)}
-                    className="block w-full rounded-full bg-gold py-3 text-center text-sm font-semibold uppercase tracking-[0.2em] text-navy"
+                    className="block w-full rounded-md bg-gold py-3 text-center text-sm font-semibold uppercase tracking-[0.18em] text-navy"
                   >
                     Book Now
                   </Link>

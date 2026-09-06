@@ -46,7 +46,7 @@ export default function BanquetPage() {
         imageAlt={banquetGallery[0].alt}
       />
 
-      <section className="py-24 lg:py-32">
+      <section className="py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="At a Glance"
@@ -72,7 +72,7 @@ export default function BanquetPage() {
         </Container>
       </section>
 
-      <section className="bg-navy py-24 lg:py-32">
+      <section className="bg-navy py-[var(--space-section)]">
         <Container className="grid gap-12 lg:grid-cols-2">
           <div>
             <SectionTitle
@@ -116,7 +116,7 @@ export default function BanquetPage() {
         </Container>
       </section>
 
-      <section id="inquire" className="py-24 lg:py-32">
+      <section id="inquire" className="py-[var(--space-section)]">
         <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <SectionTitle

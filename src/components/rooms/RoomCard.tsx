@@ -16,7 +16,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
       whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/10"
+      className="group relative overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-navy/10"
     >
       <Link
         href={`/rooms/${room.slug}`}
@@ -32,7 +32,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/20 to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
 
-        <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-navy">
+        <span className="absolute left-4 top-4 rounded-md bg-gold px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-navy">
           {room.comingSoon ? "Coming Soon" : room.category}
         </span>
 
@@ -91,7 +91,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
             {room.amenities.slice(0, 3).map((a) => (
               <span
                 key={a}
-                className="rounded-full bg-cream px-2.5 py-1 text-[10px] text-charcoal/60"
+                className="rounded-md bg-cream px-2.5 py-1 text-[10px] text-charcoal/60"
               >
                 {a.split(" ").slice(0, 2).join(" ")}
               </span>

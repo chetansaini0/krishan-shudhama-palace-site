@@ -16,14 +16,26 @@ export function SmoothScroll() {
     });
 
     let rafId = 0;
+    let cancelled = false;
+    let onScroll: (() => void) | undefined;
+
     function raf(time: number) {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
 
+    (async () => {
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled) return;
+      onScroll = () => ScrollTrigger.update();
+      lenis.on("scroll", onScroll);
+    })();
+
     return () => {
+      cancelled = true;
       cancelAnimationFrame(rafId);
+      if (onScroll) lenis.off("scroll", onScroll);
       lenis.destroy();
     };
   }, []);

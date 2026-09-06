@@ -33,7 +33,7 @@ export function AmenitiesStrip() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-navy py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-navy py-[var(--space-section)]">
       <div className="pointer-events-none absolute inset-0 opacity-10">
         <Image
           src={SPIRITUAL_IMAGES.resortEvening}

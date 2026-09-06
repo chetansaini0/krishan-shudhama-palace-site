@@ -27,7 +27,7 @@ export function Testimonials() {
   }, [next, reduce]);
 
   return (
-    <section className="relative overflow-hidden bg-cream py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-cream py-[var(--space-section)]">
       <Container className="relative z-10">
         <SectionTitle
           eyebrow="Guest Reviews"
@@ -67,7 +67,7 @@ export function Testimonials() {
           <div className="mt-10 flex items-center justify-center gap-6">
             <button
               onClick={prev}
-              className="rounded-full border border-navy/15 p-2.5 text-navy transition hover:border-gold hover:text-gold"
+              className="rounded-md border border-navy/15 p-2.5 text-navy transition hover:border-gold hover:text-gold"
               aria-label="Previous review"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -88,7 +88,7 @@ export function Testimonials() {
 
             <button
               onClick={next}
-              className="rounded-full border border-navy/15 p-2.5 text-navy transition hover:border-gold hover:text-gold"
+              className="rounded-md border border-navy/15 p-2.5 text-navy transition hover:border-gold hover:text-gold"
               aria-label="Next review"
             >
               <ChevronRight className="h-5 w-5" />

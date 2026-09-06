@@ -5,7 +5,8 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
-import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
+import { Reveal } from "@/components/effects/Reveal";
+import { ImageReveal } from "@/components/effects/ImageReveal";
 import { RollingNumber } from "@/components/effects/RollingNumber";
 import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
 import { HOTEL } from "@/lib/constants";
@@ -42,43 +43,50 @@ export function SpiritualExperience() {
   const imgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-ivory py-24 lg:py-32">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-ivory py-[var(--space-section)]"
+    >
       <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <Container>
-        <SectionTitle
-          eyebrow="Our Story"
-          title="A perfect blend of heritage & modern comfort"
-          subtitle="Inspired by the spiritual aura of Khatu Shyam Temple, we blend Rajasthani palace grandeur with serene seva-style care."
-        />
+        <Reveal>
+          <SectionTitle
+            eyebrow="Our Story"
+            title="A perfect blend of heritage & modern comfort"
+            subtitle="Inspired by the spiritual aura of Khatu Shyam Temple, we blend Rajasthani palace grandeur with serene seva-style care."
+          />
+        </Reveal>
 
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <RevealOnScroll direction="left">
+          <Reveal>
             <div className="relative">
-              <motion.div
-                style={{ y: reduce ? 0 : imgY }}
-                className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl"
-              >
-                <Image
-                  src={SPIRITUAL_IMAGES.luxuryInterior}
-                  alt="Palace-style luxury hotel interior in Khatoo near Khatu Shyam Temple"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width:1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 to-transparent" />
-              </motion.div>
+              <ImageReveal>
+                <motion.div
+                  style={{ y: reduce ? 0 : imgY }}
+                  className="relative aspect-[4/5] overflow-hidden rounded-lg shadow-2xl"
+                >
+                  <Image
+                    src={SPIRITUAL_IMAGES.luxuryInterior}
+                    alt="Palace-style luxury hotel interior in Khatoo near Khatu Shyam Temple"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width:1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 to-transparent" />
+                </motion.div>
+              </ImageReveal>
 
-              <div className="absolute -bottom-6 -right-6 z-10 rounded-2xl bg-navy p-6 shadow-xl sm:-bottom-8 sm:-right-8 sm:p-8">
+              <div className="absolute -bottom-6 -right-4 z-10 rounded-lg bg-navy p-6 shadow-xl sm:-bottom-8 sm:-right-6 sm:p-8">
                 <p className="font-serif text-4xl text-gold sm:text-5xl">
                   <RollingNumber value={stats[2].value} suffix={stats[2].suffix} />
                 </p>
                 <p className="mt-1 text-xs text-ivory/60">{stats[2].label}</p>
               </div>
             </div>
-          </RevealOnScroll>
+          </Reveal>
 
-          <RevealOnScroll direction="right" delay={0.2}>
+          <Reveal delay={0.12}>
             <div className="space-y-6">
               <p className="text-base leading-relaxed text-charcoal/70 lg:text-lg">
                 {HOTEL.description}
@@ -102,37 +110,32 @@ export function SpiritualExperience() {
               </div>
 
               <Link
-                href="/contact"
-                className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold-muted transition hover:text-gold hover:gap-3"
+                href="/about"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold-muted transition hover:gap-3 hover:text-gold"
               >
                 Discover more about us
                 <span aria-hidden>&rarr;</span>
               </Link>
             </div>
-          </RevealOnScroll>
+          </Reveal>
         </div>
 
-        <RevealOnScroll delay={0.1}>
-          <div className="mt-20 grid gap-4 sm:grid-cols-3">
-            {highlights.map((shot) => (
-              <motion.div
-                key={shot.src}
-                whileHover={reduce ? undefined : { scale: 1.03 }}
-                transition={{ duration: 0.4 }}
-                className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg"
-              >
+        <div className="mt-20 grid gap-4 sm:grid-cols-3">
+          {highlights.map((shot, i) => (
+            <Reveal key={shot.src} delay={i * 0.08}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg">
                 <Image
                   src={shot.src}
                   alt={shot.alt}
                   fill
-                  className="object-cover transition-transform duration-700 hover:scale-110"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
                   sizes="(max-width:768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent opacity-0 transition-opacity hover:opacity-100" />
-              </motion.div>
-            ))}
-          </div>
-        </RevealOnScroll>
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/35 to-transparent opacity-0 transition-opacity hover:opacity-100" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </Container>
     </section>
   );

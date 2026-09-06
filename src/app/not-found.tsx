@@ -27,19 +27,19 @@ export default function NotFound() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
               href="/"
-              className="btn-shimmer rounded-full bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
+              className="btn-shimmer rounded-md bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
             >
               Return Home
             </Link>
             <Link
               href="/book"
-              className="rounded-full border border-navy/15 px-8 py-3 text-sm font-medium text-navy transition hover:border-gold hover:text-gold"
+              className="rounded-md border border-navy/15 px-8 py-3 text-sm font-medium text-navy transition hover:border-gold hover:text-gold"
             >
               Book a Stay
             </Link>
             <Link
               href="/contact"
-              className="rounded-full border border-navy/15 px-8 py-3 text-sm font-medium text-navy transition hover:border-gold hover:text-gold"
+              className="rounded-md border border-navy/15 px-8 py-3 text-sm font-medium text-navy transition hover:border-gold hover:text-gold"
             >
               Contact Us
             </Link>

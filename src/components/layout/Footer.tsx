@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { HOTEL } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
-import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
+import { Reveal } from "@/components/effects/Reveal";
 import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 const quickLinks = [
@@ -58,13 +58,13 @@ export function Footer() {
       <div className="absolute inset-0 bg-gradient-to-b from-navy-light/50 via-transparent to-transparent" />
 
       <div className="relative">
-        <RevealOnScroll>
+        <Reveal>
           <div className="border-b border-gold/10 py-16 text-center">
             <Container>
-              <p className="text-xs font-medium uppercase tracking-[0.5em] text-gold/60">
+              <p className="text-xs font-medium uppercase tracking-[0.4em] text-gold/60">
                 Begin your journey
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-ivory sm:text-5xl">
+              <h2 className="mt-4 font-serif text-3xl tracking-tight text-ivory sm:text-5xl">
                 Experience{" "}
                 <span className="text-gold">{HOTEL.shortName}</span>
               </h2>
@@ -74,7 +74,7 @@ export function Footer() {
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <Link
                   href="/book"
-                  className="btn-shimmer rounded-full bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
+                  className="btn-shimmer rounded-md bg-gold px-8 py-3 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
                 >
                   Reserve Your Stay
                 </Link>
@@ -82,14 +82,14 @@ export function Footer() {
                   href={`https://wa.me/${HOTEL.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-ivory/20 px-8 py-3 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
+                  className="rounded-md border border-ivory/20 px-8 py-3 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
                 >
                   WhatsApp Concierge
                 </a>
               </div>
             </Container>
           </div>
-        </RevealOnScroll>
+        </Reveal>
 
         <Container className="grid gap-12 py-16 md:grid-cols-4">
           <div className="md:col-span-1">

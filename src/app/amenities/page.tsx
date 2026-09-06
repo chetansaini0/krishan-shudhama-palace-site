@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
-import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
+import { Reveal } from "@/components/effects/Reveal";
 import { SPIRITUAL_IMAGES } from "@/lib/spiritual-media";
 import { HOTEL } from "@/lib/constants";
 import {
@@ -85,7 +85,7 @@ export default function AmenitiesPage() {
         </Container>
       </section>
 
-      <section className="py-24 lg:py-32">
+      <section className="py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="Essentials"
@@ -94,7 +94,7 @@ export default function AmenitiesPage() {
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {coreAmenities.map((item, i) => (
-              <RevealOnScroll key={item.label} delay={i * 0.05}>
+              <Reveal key={item.label} delay={i * 0.05}>
                 <div className="group h-full rounded-xl border border-gold/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="mb-4 inline-flex rounded-xl bg-gold/10 p-3 text-gold transition group-hover:bg-gold/20">
                     <item.icon className="h-6 w-6" />
@@ -102,13 +102,13 @@ export default function AmenitiesPage() {
                   <h3 className="font-serif text-lg text-navy">{item.label}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-charcoal/55">{item.desc}</p>
                 </div>
-              </RevealOnScroll>
+              </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="bg-navy py-24 lg:py-32">
+      <section className="bg-navy py-[var(--space-section)]">
         <Container>
           <SectionTitle
             eyebrow="Lifestyle & Wellness"
@@ -118,7 +118,7 @@ export default function AmenitiesPage() {
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {lifestyleAmenities.map((item, i) => (
-              <RevealOnScroll key={item.label} delay={i * 0.05}>
+              <Reveal key={item.label} delay={i * 0.05}>
                 <div className="group h-full rounded-xl border border-white/5 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-gold/20 hover:bg-white/[0.06]">
                   <div className="mb-4 inline-flex rounded-xl bg-gold/10 p-3 text-gold transition-colors group-hover:bg-gold/20">
                     <item.icon className="h-6 w-6" />
@@ -126,7 +126,7 @@ export default function AmenitiesPage() {
                   <h3 className="font-serif text-lg text-ivory">{item.label}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ivory/45">{item.desc}</p>
                 </div>
-              </RevealOnScroll>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -145,13 +145,13 @@ export default function AmenitiesPage() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/book"
-                className="btn-shimmer rounded-full bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
+                className="btn-shimmer rounded-md bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-navy transition hover:bg-gold-light"
               >
                 Book Now
               </Link>
               <a
                 href={HOTEL.phoneTel}
-                className="rounded-full border border-ivory/20 px-8 py-3.5 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
+                className="rounded-md border border-ivory/20 px-8 py-3.5 text-sm font-medium text-ivory transition hover:border-gold/40 hover:text-gold"
               >
                 Call {HOTEL.phone}
               </a>

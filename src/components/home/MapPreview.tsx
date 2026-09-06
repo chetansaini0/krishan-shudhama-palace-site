@@ -3,7 +3,7 @@
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { HOTEL } from "@/lib/constants";
-import { RevealOnScroll } from "@/components/effects/RevealOnScroll";
+import { Reveal } from "@/components/effects/Reveal";
 import Link from "next/link";
 import { MapPin, Navigation, Clock } from "lucide-react";
 
@@ -16,7 +16,7 @@ const nearby = [
 
 export function MapPreview() {
   return (
-    <section className="relative overflow-hidden bg-ivory py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-ivory py-[var(--space-section)]">
       <Container>
         <SectionTitle
           eyebrow="Location"
@@ -24,7 +24,7 @@ export function MapPreview() {
           subtitle={HOTEL.fullAddress}
         />
 
-        <RevealOnScroll>
+        <Reveal>
           <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr]">
             <div className="overflow-hidden rounded-2xl border border-gold/10 shadow-2xl">
               <iframe
@@ -79,7 +79,7 @@ export function MapPreview() {
               </div>
             </div>
           </div>
-        </RevealOnScroll>
+        </Reveal>
       </Container>
     </section>
   );
