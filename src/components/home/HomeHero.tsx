@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { HOTEL } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
+import { ParticleField } from "@/components/effects/ParticleField";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 
@@ -71,6 +72,7 @@ export function HomeHero() {
         style={{ opacity: reduce ? 0.55 : overlayOpacity }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-navy/50" />
+      {!reduce ? <ParticleField count={15} /> : null}
       <div className="grain pointer-events-none absolute inset-0" />
 
       <Container className="relative z-10 flex h-full flex-col justify-end pb-16 pt-28 sm:pb-20 lg:justify-center lg:pb-24">
