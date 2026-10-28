@@ -99,7 +99,7 @@ export default async function HomePage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.4em] text-gold/65">
+              <p className="text-xs font-medium uppercase tracking-[0.4em] text-gold/80">
                 Ready to experience
               </p>
               <h2 className="mt-4 font-serif text-3xl text-ivory sm:text-5xl">
