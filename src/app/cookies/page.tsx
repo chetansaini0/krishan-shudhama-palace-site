@@ -83,7 +83,7 @@ export default function CookiePolicyPage() {
             <h2 className="font-serif text-xl text-navy">6. Contact</h2>
             <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
               Questions about our use of cookies? Reach us at{" "}
-              <a href={`mailto:${HOTEL.email}`} className="text-gold-muted hover:text-gold">
+              <a href={`mailto:${HOTEL.email}`} className="text-gold-muted underline underline-offset-2 hover:text-gold">
                 {HOTEL.email}
               </a>
               .

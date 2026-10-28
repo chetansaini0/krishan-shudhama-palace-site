@@ -178,7 +178,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
               <ChevronRight className="h-6 w-6" />
             </button>
 
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-ivory/40">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs text-ivory/55">
               {lightbox + 1} / {filtered.length}
             </div>
           </motion.div>

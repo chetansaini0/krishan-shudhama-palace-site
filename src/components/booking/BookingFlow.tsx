@@ -241,10 +241,10 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
                   <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <p className="font-serif text-2xl text-navy">Booking Confirmed!</p>
-                <p className="mt-3 text-sm text-charcoal/55">
+                <p className="mt-3 text-sm text-charcoal/65">
                   Payment successful. A confirmation email has been sent to <span className="font-medium text-navy">{email}</span>.
                 </p>
-                <p className="mt-2 text-sm text-charcoal/55">
+                <p className="mt-2 text-sm text-charcoal/65">
                   Our team has also been notified and may reach you on {phone || "your phone"} if needed.
                 </p>
                 <dl className="mx-auto mt-6 max-w-sm space-y-2 text-left text-sm text-charcoal/70">
@@ -260,7 +260,7 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
         </div>
 
         <aside className="h-fit rounded-2xl bg-navy p-8 text-ivory shadow-xl lg:p-10">
-          <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-gold/60">Summary</p>
+          <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-gold/80">Summary</p>
           <h2 className="mt-3 font-serif text-2xl">{room.name}</h2>
           <dl className="mt-6 space-y-3 text-sm text-ivory/70">
             <div className="flex justify-between"><dt>Dates</dt><dd>{checkIn || "—"} &rarr; {checkOut || "—"}</dd></div>
@@ -268,9 +268,9 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
             <div className="flex justify-between"><dt>Guests</dt><dd>{guests}</dd></div>
           </dl>
           <div className="mt-6 border-t border-white/10 pt-6">
-            <p className="text-[10px] uppercase tracking-widest text-gold/60">Total</p>
+            <p className="text-[10px] uppercase tracking-widest text-gold/80">Total</p>
             <p className="mt-1 font-serif text-4xl text-gold">₹{summary?.totalRupees != null ? summary.totalRupees.toLocaleString("en-IN") : "—"}</p>
-            <p className="mt-2 text-xs text-ivory/40">Taxes as applicable</p>
+            <p className="mt-2 text-xs text-ivory/55">Taxes as applicable</p>
           </div>
         </aside>
       </div>

@@ -107,7 +107,7 @@ export default function BanquetPage() {
                   key={s.label}
                   className="flex items-center gap-3 text-sm text-ivory/60"
                 >
-                  <s.icon className="h-5 w-5 shrink-0 text-gold/60" />
+                  <s.icon className="h-5 w-5 shrink-0 text-gold/80" />
                   {s.label}
                 </div>
               ))}

@@ -96,7 +96,7 @@ export function OfferPopup() {
               <h3 className="mt-2 font-serif text-2xl text-navy sm:text-3xl">
                 Weekend Palace Escape
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-charcoal/55">
+              <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
                 Complimentary breakfast & priority upgrades on select suites when you book direct this month.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">

@@ -43,7 +43,7 @@ export default function ContactPage() {
                   <Phone className="h-5 w-5 text-gold" />
                 </div>
                 <div>
-                  <p className="text-xs text-ivory/40">Phone</p>
+                  <p className="text-xs text-ivory/55">Phone</p>
                   <p className="font-medium">{HOTEL.phone}</p>
                 </div>
               </a>
@@ -56,7 +56,7 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-gold" />
                 </div>
                 <div>
-                  <p className="text-xs text-ivory/40">Email</p>
+                  <p className="text-xs text-ivory/55">Email</p>
                   <p className="font-medium">{HOTEL.email}</p>
                 </div>
               </a>
@@ -70,7 +70,7 @@ export default function ContactPage() {
                   <MessageCircle className="h-5 w-5 text-green-400" />
                 </div>
                 <div>
-                  <p className="text-xs text-ivory/40">WhatsApp</p>
+                  <p className="text-xs text-ivory/55">WhatsApp</p>
                   <p className="font-medium">Chat with us</p>
                 </div>
               </Link>
@@ -80,14 +80,14 @@ export default function ContactPage() {
                   <MapPin className="h-5 w-5 text-gold" />
                 </div>
                 <div>
-                  <p className="text-xs text-ivory/40">Address</p>
+                  <p className="text-xs text-ivory/55">Address</p>
                   <p className="font-medium">{HOTEL.fullAddress}</p>
                 </div>
               </div>
             </div>
 
             <div className="rounded-xl border border-white/5 bg-white/[0.03] p-4">
-              <div className="flex items-center gap-2 text-xs text-gold/60">
+              <div className="flex items-center gap-2 text-xs text-gold/80">
                 <Clock className="h-3.5 w-3.5" /> Reception Hours
               </div>
               <p className="mt-2 text-sm text-ivory/60">24 hours — we never close</p>

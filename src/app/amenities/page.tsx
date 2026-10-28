@@ -100,7 +100,7 @@ export default function AmenitiesPage() {
                     <item.icon className="h-6 w-6" />
                   </div>
                   <h3 className="font-serif text-lg text-navy">{item.label}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-charcoal/55">{item.desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{item.desc}</p>
                 </div>
               </Reveal>
             ))}

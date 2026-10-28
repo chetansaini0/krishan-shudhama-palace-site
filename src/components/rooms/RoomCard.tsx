@@ -82,7 +82,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
           </div>
         </div>
 
-        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-charcoal/55">
+        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-charcoal/65">
           {room.description}
         </p>
 

@@ -83,33 +83,33 @@ export function RoomBookingPanel({ room }: { room: RoomPublic }) {
         <h2 className="font-serif text-xl">Reserve this room</h2>
       </div>
       <div className="mt-4">
-        <span className="text-xs text-ivory/40">From</span>
+        <span className="text-xs text-ivory/55">From</span>
         <p className="font-serif text-3xl text-gold">
           ₹{room.basePrice.toLocaleString("en-IN")}
-          <span className="ml-1 text-sm font-sans text-ivory/40">/ night</span>
+          <span className="ml-1 text-sm font-sans text-ivory/55">/ night</span>
         </p>
       </div>
       {room.sizeSqFt && (
-        <p className="mt-2 text-xs text-ivory/40">
+        <p className="mt-2 text-xs text-ivory/55">
           {room.sizeSqFt} sqft · Max {room.maxGuests} guests
           {!room.comingSoon && room.inventory > 0 ? ` · ${room.inventory} rooms` : ""}
         </p>
       )}
       {!room.sizeSqFt && !room.comingSoon && room.inventory > 0 && (
-        <p className="mt-2 text-xs text-ivory/40">{room.inventory} rooms available</p>
+        <p className="mt-2 text-xs text-ivory/55">{room.inventory} rooms available</p>
       )}
 
       <div className="mt-6 space-y-4">
         <label className="block">
-          <span className="text-xs font-medium uppercase tracking-wider text-gold/60">Check-in</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-gold/80">Check-in</span>
           <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className={inputCls} />
         </label>
         <label className="block">
-          <span className="text-xs font-medium uppercase tracking-wider text-gold/60">Check-out</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-gold/80">Check-out</span>
           <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} className={inputCls} />
         </label>
         <label className="block">
-          <span className="text-xs font-medium uppercase tracking-wider text-gold/60">Guests</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-gold/80">Guests</span>
           <select value={validGuests} onChange={(e) => setGuests(Number(e.target.value))} className={inputCls}>
             {Array.from({ length: room.maxGuests }, (_, i) => i + 1).map((n) => (
               <option key={n} value={n} className="bg-navy text-ivory">{n}</option>

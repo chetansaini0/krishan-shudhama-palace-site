@@ -59,7 +59,7 @@ export function Promotions() {
                     <span className="rounded-md bg-gold/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
                       Save {o.discountPercent}%
                     </span>
-                    <span className="text-xs text-ivory/40">
+                    <span className="text-xs text-ivory/55">
                       Until {new Date(o.validUntil).toLocaleDateString()}
                     </span>
                   </div>

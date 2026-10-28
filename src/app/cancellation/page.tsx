@@ -102,7 +102,7 @@ export default function CancellationPolicyPage() {
             <ul className="mt-3 space-y-1 text-sm text-charcoal/70">
               <li>
                 Email:{" "}
-                <a href={`mailto:${HOTEL.email}`} className="text-gold-muted hover:text-gold">
+                <a href={`mailto:${HOTEL.email}`} className="text-gold-muted underline underline-offset-2 hover:text-gold">
                   {HOTEL.email}
                 </a>
               </li>

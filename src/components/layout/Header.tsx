@@ -300,7 +300,7 @@ export function Header() {
                       transition={{ delay: i * 0.05 }}
                       className="mt-1 rounded-lg border border-white/5 bg-white/[0.03] p-2"
                     >
-                      <p className="px-2 pb-2 pt-1 text-[10px] uppercase tracking-[0.3em] text-gold/60">
+                      <p className="px-2 pb-2 pt-1 text-[10px] uppercase tracking-[0.3em] text-gold/80">
                         {item.label}
                       </p>
                       {item.links.map((link) => (

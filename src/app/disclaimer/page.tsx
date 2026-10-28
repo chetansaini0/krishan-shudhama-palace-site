@@ -93,7 +93,7 @@ export default function DisclaimerPage() {
             <h2 className="font-serif text-xl text-navy">8. Contact</h2>
             <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
               For questions about this disclaimer, contact{" "}
-              <a href={`mailto:${HOTEL.email}`} className="text-gold-muted hover:text-gold">
+              <a href={`mailto:${HOTEL.email}`} className="text-gold-muted underline underline-offset-2 hover:text-gold">
                 {HOTEL.email}
               </a>{" "}
               or call{" "}

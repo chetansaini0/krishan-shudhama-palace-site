@@ -61,7 +61,7 @@ export function Footer() {
         <Reveal>
           <div className="border-b border-gold/10 py-16 text-center">
             <Container>
-              <p className="text-xs font-medium uppercase tracking-[0.4em] text-gold/60">
+              <p className="text-xs font-medium uppercase tracking-[0.4em] text-gold/80">
                 Begin your journey
               </p>
               <h2 className="mt-4 font-serif text-3xl tracking-tight text-ivory sm:text-5xl">
@@ -97,7 +97,7 @@ export function Footer() {
               <span className="font-serif text-2xl tracking-wider text-gold">
                 {HOTEL.shortName}
               </span>
-              <span className="ml-2 text-[9px] uppercase tracking-[0.4em] text-ivory/40">
+              <span className="ml-2 text-[9px] uppercase tracking-[0.4em] text-ivory/55">
                 Palace
               </span>
             </Link>
@@ -136,25 +136,25 @@ export function Footer() {
                 }
                 className="flex items-center gap-3 transition hover:text-gold"
               >
-                <MapPin className="h-4 w-4 text-gold/60" />
+                <MapPin className="h-4 w-4 text-gold/80" />
                 www.krishanshudhamapalace.com
               </a>
               <a
                 href={HOTEL.phoneTel}
                 className="flex items-center gap-3 transition hover:text-gold"
               >
-                <Phone className="h-4 w-4 text-gold/60" />
+                <Phone className="h-4 w-4 text-gold/80" />
                 {HOTEL.phone}
               </a>
               <a
                 href={`mailto:${HOTEL.email}`}
                 className="flex items-center gap-3 transition hover:text-gold"
               >
-                <Mail className="h-4 w-4 text-gold/60" />
+                <Mail className="h-4 w-4 text-gold/80" />
                 {HOTEL.email}
               </a>
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold/60" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold/80" />
                 <span>{HOTEL.fullAddress}</span>
               </div>
             </div>
