@@ -132,7 +132,11 @@ export function Header() {
           aria-expanded={isOpen}
           aria-haspopup="menu"
           aria-controls={menuId}
-          onClick={() => setOpenDropdown((v) => (v === item.id ? null : item.id))}
+          onClick={(event) =>
+            // Mouse hover already opens the menu; a mouse click should keep it open
+            // instead of toggling it shut. Keyboard (detail 0) still toggles.
+            setOpenDropdown((v) => (event.detail === 0 && v === item.id ? null : item.id))
+          }
         >
           {item.label}
           <ChevronDown
