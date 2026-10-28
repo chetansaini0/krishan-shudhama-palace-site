@@ -66,7 +66,7 @@ export function DiningPreview() {
                 <br />
                 <span className="text-gold">every palate</span>
               </h2>
-              <p className="mt-6 text-base leading-relaxed text-charcoal/60">
+              <p className="mt-6 text-base leading-relaxed text-charcoal/65">
                 Our multi-cuisine restaurant brings together authentic Rajasthani flavors,
                 aromatic South Indian delicacies, and global favorites — all prepared with
                 fresh ingredients and served in an elegant setting.
@@ -91,7 +91,7 @@ export function DiningPreview() {
                 {hours.map((h) => (
                   <div key={h.meal} className="flex justify-between text-sm">
                     <span className="font-medium text-navy">{h.meal}</span>
-                    <span className="text-charcoal/50">{h.time}</span>
+                    <span className="text-charcoal/65">{h.time}</span>
                   </div>
                 ))}
               </div>

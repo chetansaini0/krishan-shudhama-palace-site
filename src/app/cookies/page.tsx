@@ -72,7 +72,7 @@ export default function CookiePolicyPage() {
             <section key={s.heading}>
               <h2 className="font-serif text-xl text-navy">{s.heading}</h2>
               {s.body.map((p, i) => (
-                <p key={i} className="mt-3 text-sm leading-relaxed text-charcoal/60">
+                <p key={i} className="mt-3 text-sm leading-relaxed text-charcoal/65">
                   {p}
                 </p>
               ))}
@@ -81,7 +81,7 @@ export default function CookiePolicyPage() {
 
           <section className="rounded-2xl border border-gold/15 bg-white p-6">
             <h2 className="font-serif text-xl text-navy">6. Contact</h2>
-            <p className="mt-3 text-sm leading-relaxed text-charcoal/60">
+            <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
               Questions about our use of cookies? Reach us at{" "}
               <a href={`mailto:${HOTEL.email}`} className="text-gold-muted hover:text-gold">
                 {HOTEL.email}

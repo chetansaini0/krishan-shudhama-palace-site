@@ -20,7 +20,7 @@ export default function NotFound() {
             Page not found
           </p>
           <h1 className="mt-4 font-serif text-5xl text-navy sm:text-6xl">404</h1>
-          <p className="mt-4 text-base leading-relaxed text-charcoal/60">
+          <p className="mt-4 text-base leading-relaxed text-charcoal/65">
             The page you are looking for may have moved or no longer exists. Let us help you
             find your way back to {HOTEL.shortName}.
           </p>

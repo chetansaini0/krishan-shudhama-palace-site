@@ -38,12 +38,12 @@ export function ContactForm() {
     >
       <div>
         <h3 className="font-serif text-2xl text-navy">Send us a message</h3>
-        <p className="mt-1 text-sm text-charcoal/50">We will respond within 24 hours.</p>
+        <p className="mt-1 text-sm text-charcoal/65">We will respond within 24 hours.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block" htmlFor="contact-name">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Name</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Name</span>
           <input
             id="contact-name"
             name="name"
@@ -54,7 +54,7 @@ export function ContactForm() {
           />
         </label>
         <label className="block" htmlFor="contact-phone">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Phone</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Phone</span>
           <input
             id="contact-phone"
             name="phone"
@@ -67,7 +67,7 @@ export function ContactForm() {
       </div>
 
       <label className="block" htmlFor="contact-email">
-        <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Email (optional)</span>
+        <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Email (optional)</span>
         <input
           id="contact-email"
           name="email"
@@ -79,7 +79,7 @@ export function ContactForm() {
       </label>
 
       <label className="block" htmlFor="contact-message">
-        <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Message</span>
+        <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Message</span>
         <textarea
           id="contact-message"
           name="message"

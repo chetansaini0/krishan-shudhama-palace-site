@@ -40,7 +40,7 @@ export function EventInquiryForm() {
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block" htmlFor="event-name">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Name</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Name</span>
           <input
             id="event-name"
             name="name"
@@ -50,7 +50,7 @@ export function EventInquiryForm() {
           />
         </label>
         <label className="block" htmlFor="event-email">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Email</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Email</span>
           <input
             id="event-email"
             name="email"
@@ -64,7 +64,7 @@ export function EventInquiryForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block" htmlFor="event-phone">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Phone</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Phone</span>
           <input
             id="event-phone"
             name="phone"
@@ -74,7 +74,7 @@ export function EventInquiryForm() {
           />
         </label>
         <label className="block" htmlFor="event-type">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Event Type</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Event Type</span>
           <select
             id="event-type"
             name="eventType"
@@ -91,7 +91,7 @@ export function EventInquiryForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block" htmlFor="event-guest-count">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Guest Count</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Guest Count</span>
           <input
             id="event-guest-count"
             name="guestCount"
@@ -102,7 +102,7 @@ export function EventInquiryForm() {
           />
         </label>
         <label className="block" htmlFor="event-preferred-date">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Preferred Date</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Preferred Date</span>
           <input
             id="event-preferred-date"
             name="preferredDate"
@@ -113,7 +113,7 @@ export function EventInquiryForm() {
       </div>
 
       <label className="block" htmlFor="event-notes">
-        <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Additional Notes</span>
+        <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Additional Notes</span>
         <textarea
           id="event-notes"
           name="notes"

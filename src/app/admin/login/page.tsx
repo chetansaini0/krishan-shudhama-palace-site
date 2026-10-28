@@ -45,11 +45,11 @@ export default function AdminLoginPage() {
           <h1 className="mt-2 font-serif text-3xl text-navy">Admin Login</h1>
         </div>
         <label className="block">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Email</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Email</span>
           <input type="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} required />
         </label>
         <label className="block">
-          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Password</span>
+          <span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Password</span>
           <input type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} required />
         </label>
         {error && <p className="text-sm text-red-600">{error}</p>}

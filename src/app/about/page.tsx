@@ -171,7 +171,7 @@ export default function AboutPage() {
               <Reveal key={m.year} delay={i * 0.08}>
                 <div className="h-full rounded-2xl border border-gold/10 bg-cream/40 p-8">
                   <p className="font-serif text-2xl text-gold">{m.year}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-charcoal/60">{m.label}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-charcoal/65">{m.label}</p>
                 </div>
               </Reveal>
             ))}

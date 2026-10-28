@@ -88,7 +88,7 @@ export default function PrivacyPolicyPage() {
             <section key={s.heading}>
               <h2 className="font-serif text-xl text-navy">{s.heading}</h2>
               {s.body.map((p, i) => (
-                <p key={i} className="mt-3 text-sm leading-relaxed text-charcoal/60">
+                <p key={i} className="mt-3 text-sm leading-relaxed text-charcoal/65">
                   {p}
                 </p>
               ))}
@@ -97,7 +97,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="rounded-2xl border border-gold/15 bg-white p-6">
             <h2 className="font-serif text-xl text-navy">9. Contact Us</h2>
-            <p className="mt-3 text-sm leading-relaxed text-charcoal/60">
+            <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
               For privacy questions or requests, contact us at:
             </p>
             <ul className="mt-3 space-y-1 text-sm text-charcoal/70">

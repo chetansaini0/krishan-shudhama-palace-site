@@ -65,7 +65,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
             onClick={() => { setFilter(c.key); setLightbox(null); }}
             aria-pressed={filter === c.key}
             className={`relative rounded-full px-5 py-2 text-sm font-medium transition ${
-              filter === c.key ? "text-navy" : "text-charcoal/50 hover:text-navy"
+              filter === c.key ? "text-navy" : "text-charcoal/65 hover:text-navy"
             }`}
           >
             {filter === c.key && (

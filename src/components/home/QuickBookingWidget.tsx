@@ -30,7 +30,7 @@ export function QuickBookingWidget({ elevated = false }: { elevated?: boolean })
       <label className={`flex flex-col gap-1.5 p-4 transition lg:p-5 ${elevated ? "hover:bg-navy/[0.03]" : "hover:bg-white/5"}`}>
         <span
           className={`flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] ${
-            elevated ? "text-gold-muted" : "text-gold/70"
+            elevated ? "text-gold-muted" : "text-gold/80"
           }`}
         >
           <Calendar className="h-3.5 w-3.5" /> Check-in
@@ -54,7 +54,7 @@ export function QuickBookingWidget({ elevated = false }: { elevated?: boolean })
       >
         <span
           className={`flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] ${
-            elevated ? "text-gold-muted" : "text-gold/70"
+            elevated ? "text-gold-muted" : "text-gold/80"
           }`}
         >
           <Calendar className="h-3.5 w-3.5" /> Check-out
@@ -78,7 +78,7 @@ export function QuickBookingWidget({ elevated = false }: { elevated?: boolean })
       >
         <span
           className={`flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.3em] ${
-            elevated ? "text-gold-muted" : "text-gold/70"
+            elevated ? "text-gold-muted" : "text-gold/80"
           }`}
         >
           <Users className="h-3.5 w-3.5" /> Guests

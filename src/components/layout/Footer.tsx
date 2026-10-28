@@ -107,9 +107,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold/70">
+            <h2 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold/80">
               Explore
-            </h4>
+            </h2>
             <div className="flex flex-col gap-3">
               {quickLinks.map((l) => (
                 <Link
@@ -125,9 +125,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold/70">
+            <h2 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold/80">
               Contact
-            </h4>
+            </h2>
             <div className="flex flex-col gap-4 text-sm text-ivory/55">
               <a
                 href={
@@ -161,9 +161,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold/70">
+            <h2 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold/80">
               Social
-            </h4>
+            </h2>
             <div className="flex flex-col gap-3">
               {socialLinks.map((s) => (
                 <a

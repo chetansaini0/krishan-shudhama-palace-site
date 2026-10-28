@@ -92,7 +92,7 @@ export default function BanquetPage() {
             </ul>
           </div>
           <div className="rounded-2xl border border-gold/10 bg-white/[0.03] p-10 backdrop-blur-sm">
-            <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-gold/70">
+            <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-gold/80">
               Guest Capacity
             </p>
             <p className="mt-4 font-serif text-5xl text-ivory">

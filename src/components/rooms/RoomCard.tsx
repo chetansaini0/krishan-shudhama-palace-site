@@ -62,7 +62,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
             <h3 className="font-serif text-xl text-navy group-hover:text-gold-muted transition-colors">
               {room.name}
             </h3>
-            <p className="mt-1 text-sm text-charcoal/50">{room.tagline}</p>
+            <p className="mt-1 text-sm text-charcoal/65">{room.tagline}</p>
           </div>
           <div className="shrink-0 text-right">
             {room.comingSoon ? (
@@ -76,7 +76,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
                 <p className="font-serif text-2xl text-navy">
                   ₹{room.basePrice.toLocaleString("en-IN")}
                 </p>
-                <p className="text-[11px] text-charcoal/40">per night</p>
+                <p className="text-[11px] text-charcoal/65">per night</p>
               </>
             )}
           </div>
@@ -91,7 +91,7 @@ export function RoomCard({ room, index = 0 }: { room: RoomPublic; index?: number
             {room.amenities.slice(0, 3).map((a) => (
               <span
                 key={a}
-                className="rounded-md bg-cream px-2.5 py-1 text-[10px] text-charcoal/60"
+                className="rounded-md bg-cream px-2.5 py-1 text-[10px] text-charcoal/65"
               >
                 {a.split(" ").slice(0, 2).join(" ")}
               </span>

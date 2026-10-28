@@ -90,7 +90,7 @@ export default function LocationPage() {
                     className="flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.03] px-4 py-3 text-sm"
                   >
                     <span className="text-ivory/70">{n.place}</span>
-                    <span className="flex items-center gap-1 text-xs text-gold/70">
+                    <span className="flex items-center gap-1 text-xs text-gold/80">
                       <Clock className="h-3 w-3" />
                       {n.time}
                     </span>

@@ -46,7 +46,7 @@ export function SectionTitle({
       </Heading>
       {subtitle && (
         <p
-          className={`text-base leading-relaxed lg:text-lg ${dark ? "text-ivory/58" : "text-charcoal/60"}`}
+          className={`text-base leading-relaxed lg:text-lg ${dark ? "text-ivory/58" : "text-charcoal/65"}`}
         >
           {subtitle}
         </p>

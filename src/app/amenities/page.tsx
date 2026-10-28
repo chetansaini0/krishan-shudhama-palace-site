@@ -135,7 +135,7 @@ export default function AmenitiesPage() {
       <section className="py-20 lg:py-28">
         <Container>
           <div className="rounded-2xl border border-gold/15 bg-navy p-8 text-center text-ivory lg:p-12">
-            <p className="text-[10px] uppercase tracking-[0.35em] text-gold/70">Plan Your Visit</p>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-gold/80">Plan Your Visit</p>
             <h2 className="mt-2 font-serif text-3xl sm:text-4xl">
               Experience it in person
             </h2>

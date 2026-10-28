@@ -56,7 +56,7 @@ export default function BlogPage() {
                   {post.title}
                 </Link>
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-charcoal/60">{post.description}</p>
+              <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{post.description}</p>
               <Link
                 href={`/blog/${post.slug}`}
                 className="mt-4 inline-block text-sm font-medium text-gold hover:underline"

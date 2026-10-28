@@ -91,7 +91,7 @@ export function SpiritualExperience() {
               <p className="text-base leading-relaxed text-charcoal/70 lg:text-lg">
                 {HOTEL.description}
               </p>
-              <p className="text-sm leading-relaxed text-charcoal/60">
+              <p className="text-sm leading-relaxed text-charcoal/65">
                 From the first glow of evening lamps to unhurried mornings, every frame is meant
                 to feel blessed. Whether you are on a pilgrimage, celebrating a milestone, or
                 seeking premium comfort near the temple, our palace-style hospitality ensures
@@ -104,7 +104,7 @@ export function SpiritualExperience() {
                     <p className="font-serif text-2xl text-navy sm:text-3xl">
                       <RollingNumber value={s.value} suffix={s.suffix} />
                     </p>
-                    <p className="mt-1 text-xs text-charcoal/50">{s.label}</p>
+                    <p className="mt-1 text-xs text-charcoal/65">{s.label}</p>
                   </div>
                 ))}
               </div>

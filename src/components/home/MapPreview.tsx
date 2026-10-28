@@ -51,7 +51,7 @@ export function MapPreview() {
                   {nearby.map((n) => (
                     <div key={n.label} className="flex items-center justify-between text-sm">
                       <span className="text-ivory/70">{n.label}</span>
-                      <span className="flex items-center gap-1 text-gold/70">
+                      <span className="flex items-center gap-1 text-gold/80">
                         <Clock className="h-3 w-3" />
                         {n.time}
                       </span>

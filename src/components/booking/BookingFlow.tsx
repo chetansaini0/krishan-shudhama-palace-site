@@ -199,34 +199,34 @@ export function BookingFlow({ rooms }: { rooms: RoomPublic[] }) {
           <motion.ol layout className="flex flex-wrap gap-2 border-b border-gold/10 pb-5 text-[11px] font-medium uppercase tracking-widest">
             <motion.li layout className={`rounded-full px-4 py-1.5 ${step === "details" ? "bg-navy text-ivory" : "bg-gold/15 text-navy"}`}>1 · Stay Details</motion.li>
             <li aria-hidden className="self-center text-gold/30">&rarr;</li>
-            <motion.li layout className={`rounded-full px-4 py-1.5 ${step === "details" ? "text-charcoal/40" : "bg-gold text-navy"}`}>2 · Confirmed</motion.li>
+            <motion.li layout className={`rounded-full px-4 py-1.5 ${step === "details" ? "text-charcoal/65" : "bg-gold text-navy"}`}>2 · Confirmed</motion.li>
           </motion.ol>
 
           <AnimatePresence mode="wait">
             {step === "details" ? (
               <motion.div key="details" className="space-y-5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block" htmlFor="booking-room"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Room</span>
+                  <label className="block" htmlFor="booking-room"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Room</span>
                     <select id="booking-room" value={roomSlug} onChange={(e) => setRoomSlug(e.target.value)} className={inputCls}>{rooms.map((r) => <option key={r.slug} value={r.slug}>{r.name}</option>)}</select>
                   </label>
-                  <label className="block" htmlFor="booking-guests"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Guests</span>
+                  <label className="block" htmlFor="booking-guests"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Guests</span>
                     <select id="booking-guests" value={guests} onChange={(e) => setGuests(Number(e.target.value))} className={inputCls}>{Array.from({ length: room.maxGuests }, (_, i) => i + 1).map((n) => <option key={n} value={n}>{n}</option>)}</select>
                   </label>
-                  <label className="block" htmlFor="booking-check-in"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Check-in</span>
+                  <label className="block" htmlFor="booking-check-in"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Check-in</span>
                     <input id="booking-check-in" type="date" min={todayIso} value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className={inputCls} />
                   </label>
-                  <label className="block" htmlFor="booking-check-out"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Check-out</span>
+                  <label className="block" htmlFor="booking-check-out"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Check-out</span>
                     <input id="booking-check-out" type="date" min={checkIn || todayIso} value={checkOut} onChange={(e) => setCheckOut(e.target.value)} className={inputCls} />
                   </label>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block sm:col-span-2" htmlFor="booking-guest-name"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Full Name</span>
+                  <label className="block sm:col-span-2" htmlFor="booking-guest-name"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Full Name</span>
                     <input id="booking-guest-name" value={guestName} onChange={(e) => setGuestName(e.target.value)} className={inputCls} placeholder="As per ID" autoComplete="name" />
                   </label>
-                  <label className="block" htmlFor="booking-email"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Email</span>
+                  <label className="block" htmlFor="booking-email"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Email</span>
                     <input id="booking-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} autoComplete="email" />
                   </label>
-                  <label className="block" htmlFor="booking-phone"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/50">Phone</span>
+                  <label className="block" htmlFor="booking-phone"><span className="text-xs font-medium uppercase tracking-wider text-charcoal/65">Phone</span>
                     <input id="booking-phone" value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} autoComplete="tel" />
                   </label>
                 </div>

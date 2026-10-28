@@ -28,7 +28,7 @@ export default function ContactPage() {
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <div className="space-y-6 rounded-2xl bg-navy p-8 text-ivory shadow-2xl lg:p-10">
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-gold/70">
+              <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-gold/80">
                 Immediate Assistance
               </p>
               <h3 className="mt-3 font-serif text-2xl">Contact Information</h3>

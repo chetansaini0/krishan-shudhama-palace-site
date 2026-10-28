@@ -80,7 +80,7 @@ export function OfferPopup() {
             <button
               type="button"
               aria-label="Close"
-              className="absolute right-4 top-4 z-10 rounded-full p-2 text-charcoal/40 transition hover:bg-navy/5 hover:text-navy"
+              className="absolute right-4 top-4 z-10 rounded-full p-2 text-charcoal/65 transition hover:bg-navy/5 hover:text-navy"
               onClick={dismiss}
             >
               <X className="h-5 w-5" />

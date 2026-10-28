@@ -111,7 +111,7 @@ export default function FaqPage() {
                   aria-hidden
                 />
               </summary>
-              <p className="pb-5 pr-9 text-sm leading-relaxed text-charcoal/60">{f.a}</p>
+              <p className="pb-5 pr-9 text-sm leading-relaxed text-charcoal/65">{f.a}</p>
             </details>
           ))}
         </div>

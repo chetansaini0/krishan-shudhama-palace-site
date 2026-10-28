@@ -59,7 +59,7 @@ export function Testimonials() {
 
               <div className="mt-8">
                 <p className="text-base font-semibold text-navy">{reviews[active].name}</p>
-                <p className="mt-1 text-sm text-charcoal/50">{reviews[active].context}</p>
+                <p className="mt-1 text-sm text-charcoal/65">{reviews[active].context}</p>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -78,11 +78,16 @@ export function Testimonials() {
                 <button
                   key={i}
                   onClick={() => setActive(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === active ? "w-8 bg-gold" : "w-2 bg-navy/15 hover:bg-navy/30"
-                  }`}
+                  className="group flex h-6 min-w-6 items-center justify-center"
                   aria-label={`Go to review ${i + 1}`}
-                />
+                >
+                  <span
+                    aria-hidden
+                    className={`block h-2 rounded-full transition-all duration-300 ${
+                      i === active ? "w-8 bg-gold" : "w-2 bg-navy/15 group-hover:bg-navy/30"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 

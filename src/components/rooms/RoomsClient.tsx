@@ -27,7 +27,7 @@ export function RoomsClient({ rooms }: { rooms: RoomPublic[] }) {
             className={`relative rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
               active === f.key
                 ? "text-navy"
-                : "text-charcoal/50 hover:text-navy"
+                : "text-charcoal/65 hover:text-navy"
             }`}
           >
             {active === f.key && (

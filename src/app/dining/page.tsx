@@ -123,15 +123,15 @@ export default function DiningPage() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="font-medium text-navy">Breakfast</span>
-                  <span className="text-charcoal/50">7:00 AM — 10:30 AM</span>
+                  <span className="text-charcoal/65">7:00 AM — 10:30 AM</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="font-medium text-navy">Lunch</span>
-                  <span className="text-charcoal/50">12:00 PM — 3:30 PM</span>
+                  <span className="text-charcoal/65">12:00 PM — 3:30 PM</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="font-medium text-navy">Dinner</span>
-                  <span className="text-charcoal/50">7:00 PM — 11:00 PM</span>
+                  <span className="text-charcoal/65">7:00 PM — 11:00 PM</span>
                 </div>
               </div>
               <Link
@@ -245,12 +245,12 @@ export default function DiningPage() {
                   <d.icon className="h-6 w-6" />
                 </div>
                 <h3 className="font-serif text-lg text-navy">{d.name}</h3>
-                <p className="mt-2 text-sm text-charcoal/50">{d.desc}</p>
+                <p className="mt-2 text-sm text-charcoal/65">{d.desc}</p>
               </div>
             ))}
           </div>
           <div className="mt-12 rounded-2xl border border-gold/15 bg-navy p-8 text-center text-ivory">
-            <p className="text-[10px] uppercase tracking-[0.35em] text-gold/70">Reservations</p>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-gold/80">Reservations</p>
             <p className="mt-2 font-serif text-3xl">
               Call <span className="text-gold">{HOTEL.phone}</span>
             </p>
