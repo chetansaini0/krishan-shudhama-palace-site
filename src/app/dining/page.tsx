@@ -62,6 +62,7 @@ export default function DiningPage() {
           fill
           className="object-cover"
           priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/30" />
         <Container className="relative z-10 flex h-full items-end pb-16">
