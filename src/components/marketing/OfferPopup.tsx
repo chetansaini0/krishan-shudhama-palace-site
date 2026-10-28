@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
 import { useScrollLock } from "@/lib/useScrollLock";
+import { readCookieConsent, subscribeCookieConsent } from "@/lib/cookie-consent";
 
 export function OfferPopup() {
   const [open, setOpen] = useState(false);
@@ -13,9 +14,13 @@ export function OfferPopup() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const seen = sessionStorage.getItem("ksp_offer_seen");
-    if (!seen) {
-      const t = setTimeout(() => {
+    if (sessionStorage.getItem("ksp_offer_seen")) return;
+    // Only offer after the visitor has answered the cookie banner, so the two
+    // overlays never stack on top of the hero on first visit.
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const schedule = () => {
+      if (timer || readCookieConsent() === null) return;
+      timer = setTimeout(() => {
         if ("requestIdleCallback" in window) {
           (
             window as Window & {
@@ -26,8 +31,13 @@ export function OfferPopup() {
         }
         setOpen(true);
       }, 5000);
-      return () => clearTimeout(t);
-    }
+    };
+    schedule();
+    const unsubscribe = subscribeCookieConsent(schedule);
+    return () => {
+      unsubscribe();
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
